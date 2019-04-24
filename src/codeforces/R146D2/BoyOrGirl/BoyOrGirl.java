@@ -1,4 +1,4 @@
-//package codeforces.R146D2.BoyOrGirl;
+package codeforces.R146D2.BoyOrGirl;
 
 import java.io.*;
 import java.util.*;
@@ -7,7 +7,7 @@ public class BoyOrGirl {
 
     public static void main(String[] args) throws IOException {
 
-        boolean fileInOut = false;
+        boolean fileInOut = true;
 
         Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? BoyOrGirl.class.getResourceAsStream("in.txt") : System.in)));
         Solution.out = new PrintWriter(new BufferedOutputStream(fileInOut ? new FileOutputStream("out.txt") : System.out), true);
