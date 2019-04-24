@@ -1,28 +1,33 @@
-package codeforces.R146D2.BoyOrGirl;
+package codeforces.VKCup2012QR1;
 
 import java.io.*;
 import java.util.*;
 
-public class BoyOrGirl {
+public class Taxi {
 
     public static void main(String[] args) throws IOException {
 
-        boolean fileInOut = BoyOrGirl.class.getPackage() != null;
+        boolean fileInOut = Taxi.class.getPackage() != null;
 
-        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? BoyOrGirl.class.getResourceAsStream("in.txt") : System.in)));
+        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? Taxi.class.getResourceAsStream("in.txt") : System.in)));
         Solution.out = new PrintWriter(new BufferedOutputStream(fileInOut ? new FileOutputStream("out.txt") : System.out), true);
 
         int testCase = fileInOut ? sc.nextInt() : 1;
 
         for (int i = 0; i < testCase; i++) {
 
-            String userName = sc.next();
-            new Solution().solve(userName);
+            int n = sc.nextInt();
+            int[] array = new int[n];
+            for (int j = 0; j < n; j++) {
+                array[j] = sc.nextInt();
+            }
+
+            new Solution().solve(array);
         }
 
         if (fileInOut) {
 
-            verify(BoyOrGirl.class.getResource("ans.txt").getFile());
+            verify(Taxi.class.getResource("ans.txt").getFile());
         }
     }
 
@@ -63,7 +68,7 @@ public class BoyOrGirl {
         } else {
 
             System.out.println("Output differ at line " + lineNum);
-            System.out.println("ans.txt has " + line1 + " and out.txt has " + line2 + " at line " + lineNum);
+            System.out.println("ans.txt has " + line1 + " and output.txt has " + line2 + " at line " + lineNum);
         }
 
         reader1.close();
@@ -75,18 +80,39 @@ class Solution {
 
     public static PrintWriter out;
 
-    public void solve(String userName) {
+    public void solve(int[] array) {
 
-        Set<Character> characterSet = new HashSet<>();
-        for (Character ch :
-                userName.toCharArray()) {
-            characterSet.add(ch);
+        int[] count = new int[5];
+
+        for (int a : array) {
+            count[a]++;
         }
 
-        if (characterSet.size() % 2 != 1) {
-            out.println("CHAT WITH HER!");
-        } else {
-            out.println("IGNORE HIM!");
+        int carCount = 0;
+
+        carCount += count[4];
+
+
+        carCount += count[3];
+        count[1] -= count[3];
+        if (count[1] < 0) count[1] = 0;
+
+        if (count[2] % 2 == 0) {
+            carCount += count[2] / 2;
         }
+        else {
+            carCount += count[2] / 2 + 1;
+            count[1] -= 2;
+            if (count[1] < 0) count[1] = 0;
+        }
+
+        if (count[1] % 4 == 0) {
+            carCount += count[1] / 4;
+        }
+        else {
+            carCount += count[1] / 4 + 1;
+        }
+
+        out.println(carCount);
     }
 }
