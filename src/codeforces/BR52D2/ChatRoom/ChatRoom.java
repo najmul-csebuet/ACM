@@ -22,7 +22,7 @@ public class ChatRoom {
                 array[j] = sc.nextInt();
             }*/
 
-            new Solution().solve();
+            new Solution().solve(sc.next());
         }
 
         if (fileInOut) {
@@ -80,7 +80,28 @@ class Solution {
 
     public static PrintWriter out;
 
-    public void solve() {
+    public void solve(String string) {
 
+        int j = -1;
+
+        for (int i = 0; i < "hello".length(); ++i) {
+
+            char ch = "hello".charAt(i);
+
+            for (++j; j < string.length(); j++) {
+
+                if (string.charAt(j) == ch) {
+
+                    break;
+                }
+            }
+
+            if (j == string.length()) {
+                out.println("NO");
+                return;
+            }
+        }
+
+        out.println("YES");
     }
 }

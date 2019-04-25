@@ -1,4 +1,9 @@
-3
-wjmzbmr
-xiaodao
-sevenkplus
+2
+4
+0 3
+2 5
+4 2
+4 0
+2
+0 1
+1 0

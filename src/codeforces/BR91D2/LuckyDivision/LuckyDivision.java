@@ -1,36 +1,34 @@
-package codeforces.BR87D2.Tram;
+//package codeforces.BR91D2.LuckyDivision;
 
 import java.io.*;
 import java.util.*;
 
-public class Tram {
+public class LuckyDivision {
 
     public static void main(String[] args) throws IOException {
 
-        boolean fileInOut = Tram.class.getPackage() != null;
+        boolean fileInOut = LuckyDivision.class.getPackage() != null;
 
-        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? Tram.class.getResourceAsStream("in.txt") : System.in)));
+        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? LuckyDivision.class.getResourceAsStream("in.txt") : System.in)));
         Solution.out = new PrintWriter(new BufferedOutputStream(fileInOut ? new FileOutputStream("out.txt") : System.out), true);
 
         int testCase = fileInOut ? sc.nextInt() : 1;
 
         for (int i = 0; i < testCase; i++) {
 
-            int n = sc.nextInt();
-            int[] a = new int[n];
-            int[] b = new int[n];
-
+            /*int n = sc.nextInt();
+            int[] array = new int[n];
             for (int j = 0; j < n; j++) {
-                a[j] = sc.nextInt();
-                b[j] = sc.nextInt();
-            }
+                array[j] = sc.nextInt();
+            }*/
 
-            new Solution().solve(a, b);
+            int n = sc.nextInt();
+            new Solution().solve(n);
         }
 
         if (fileInOut) {
 
-            verify(Tram.class.getResource("ans.txt").getFile());
+            verify(LuckyDivision.class.getResource("ans.txt").getFile());
         }
     }
 
@@ -83,17 +81,30 @@ class Solution {
 
     public static PrintWriter out;
 
-    public void solve(int[] a, int[] b) {
+    public void solve(int n) {
 
-        int max = 0;
-        int sum = 0;
+        for (int i = 1; i <= n ; i++) {
 
-        for (int i = 0; i < a.length; i++) {
+            if (n % i != 0) {
+                continue;
+            }
 
-            sum += (b[i] - a[i]);
-            max = Math.max(max, sum);
+            String st = String.valueOf(i);
+
+            boolean isLucky = true;
+            for (char ch : st.toCharArray()) {
+                if (ch != '4' && ch != '7') {
+                    isLucky = false;
+                    break;
+                }
+            }
+
+            if (isLucky) {
+                out.println("YES");
+                return;
+            }
         }
 
-        out.println(max);
+        out.println("NO");
     }
 }
