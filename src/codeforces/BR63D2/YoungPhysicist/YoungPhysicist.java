@@ -1,4 +1,4 @@
-//package codeforces.BR63D2.YoungPhysicist;
+package codeforces.BR63D2.YoungPhysicist;
 
 import java.io.*;
 import java.util.*;
