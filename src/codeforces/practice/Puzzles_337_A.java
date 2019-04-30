@@ -1,7 +1,6 @@
-package codeforces.Practice;
+package codeforces.practice;
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class Puzzles_337_A {
