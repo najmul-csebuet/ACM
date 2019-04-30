@@ -1,6 +1,6 @@
 package Algorithm.LIS;
 
-import common.OutputVerifier;
+import Common.OutputVerifier;
 
 import java.io.*;
 import java.util.Arrays;
