@@ -1,4 +1,4 @@
-package Codeforces.Round_479_Div3;
+package Codeforces.Practice.Round_479_Div3;
 
 import java.io.*;
 import java.util.*;
