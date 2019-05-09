@@ -1,4 +1,4 @@
-package Codeforces.Practice.BR40D2.Translation;
+package Codeforces.BR40D2.Translation;
 
 import java.io.*;
 import java.util.*;
