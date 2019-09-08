@@ -15,7 +15,14 @@ public class Distinct {
         int testCase = fileInOut ? sc.nextInt() : 1;
 
         for (int i = 0; i < testCase; i++) {
-            new Solution().solution();
+            int aLength = sc.nextInt();
+            int[] a = new int[aLength];
+
+            for (int aIndex = 0; aIndex < a.length; aIndex++) {
+                a[aIndex] = sc.nextInt();
+            }
+
+            new Solution().solution(a);
         }
 
         if (fileInOut) {
@@ -89,7 +96,13 @@ class Solution {
 
     public static MyPrintWriter out;
 
-    public void solution() {
+    public int solution(int[] A) {
 
+        Set<Integer> set = new HashSet<>();
+        for (int n: A) {
+            set.add(n);
+        }
+        out.println(set.size());
+        return set.size();
     }
 }

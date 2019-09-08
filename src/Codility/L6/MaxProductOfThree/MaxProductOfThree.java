@@ -101,7 +101,11 @@ class Solution {
         Arrays.sort(A);
 
         int n = A.length;
-        int probableAns = A[n-1] * A[n-2] * A[n-3];
+        int ans = Math.max(A[0] * A[1] * A[n-1], A[n-1] * A[n-2] * A[n-3]);
+        out.println(ans);
+        return ans;
+
+        /*int probableAns = A[n-1] * A[n-2] * A[n-3];
 
         if (A.length == 3 || A[0] >= 0 || A[1] >= 0) {
 
@@ -132,6 +136,6 @@ class Solution {
         }
 
         out.println(probableAns);
-        return probableAns;
+        return probableAns;*/
     }
 }
