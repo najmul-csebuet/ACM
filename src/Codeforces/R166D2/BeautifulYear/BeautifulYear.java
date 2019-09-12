@@ -1,4 +1,4 @@
-//package Codeforces.R166D2.BeautifulYear;
+package Codeforces.R166D2.BeautifulYear;
 
 import java.io.*;
 import java.util.*;

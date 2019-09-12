@@ -1,34 +1,35 @@
-package Codeforces.Div3.Round_479.D_DivideByThreeMultiplyByTwo;
+//package Codeforces.Div3.Round_479.C_Less_or_Equal;
 
 import java.io.*;
 import java.util.*;
 
-public class D_DivideByThreeMultiplyByTwo {
+public class C_Less_or_Equal {
 
     public static void main(String[] args) throws IOException {
 
-        boolean fileInOut = D_DivideByThreeMultiplyByTwo.class.getPackage() != null;
+        boolean fileInOut = C_Less_or_Equal.class.getPackage() != null;
 
-        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? D_DivideByThreeMultiplyByTwo.class.getResourceAsStream("in.txt") : System.in)));
+        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? C_Less_or_Equal.class.getResourceAsStream("in.txt") : System.in)));
         Solution.out = new PrintWriter(new BufferedOutputStream(fileInOut ? new FileOutputStream("out.txt") : System.out), true);
 
         int testCase = fileInOut ? sc.nextInt() : 1;
 
         for (int i = 0; i < testCase; i++) {
-            
-            int arrayLength = sc.nextInt();
-            Long[] array = new Long[arrayLength];
-            
-            for (int arrayIndex = 0; arrayIndex < array.length; arrayIndex++) {
-                array[arrayIndex] = sc.nextLong();
+            int n = sc.nextInt();
+            int k = sc.nextInt();
+            int aLength = n;
+            Integer[] a = new Integer[aLength];
+
+            for (int aIndex = 0; aIndex < a.length; aIndex++) {
+                a[aIndex] = sc.nextInt();
             }
-            
-            new Solution().solve(array);
+
+            new Solution().solution(n, k, a);
         }
 
         if (fileInOut) {
 
-            verify(D_DivideByThreeMultiplyByTwo.class.getResource("ans.txt").getFile());
+            verify(C_Less_or_Equal.class.getResource("ans.txt").getFile());
         }
     }
 
@@ -81,36 +82,15 @@ class Solution {
 
     public static PrintWriter out;
 
-    private int getPowerOf3(Long n) {
-
-        int count = 0;
-        while (n % 3 == 0) {
-            n /= 3;
-            ++count;
+    public void solution(int n, int k, Integer[] a) {
+        Arrays.sort(a);
+        if (k == 0) {
+            out.println(a[0] == 1 ? -1 : a[0] - 1);
         }
-
-        return count;
-    }
-
-    public void solve(Long[] array) {
-
-        Arrays.sort(array, (o1, o2) -> {
-
-            int a = getPowerOf3(o1);
-            int b = getPowerOf3(o2);
-
-            if(a != b)return b-a;
-            return (int) (o1-o2);
-        });
-
-        for (int i = 0; i < array.length; i++) {
-
-            if (i < array.length - 1) {
-                out.print(array[i] + " ");
-            }
-            else {
-                out.println(array[i]);
-            }
+        else if (k == n || a[k] > a[k-1]) {
+            out.println(a[k-1]);
+        } else {
+            out.println(-1);
         }
     }
 }
