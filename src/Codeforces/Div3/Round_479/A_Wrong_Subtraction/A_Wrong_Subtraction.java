@@ -1,10 +1,31 @@
-package Common;
+package Codeforces.Div3.Round_479.A_Wrong_Subtraction;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.util.*;
 
-public class OutputVerifier {
+public class A_Wrong_Subtraction {
+
+    public static void main(String[] args) throws IOException {
+
+        boolean fileInOut = A_Wrong_Subtraction.class.getPackage() != null;
+
+        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? A_Wrong_Subtraction.class.getResourceAsStream("in.txt") : System.in)));
+        Solution.out = new PrintWriter(new BufferedOutputStream(fileInOut ? new FileOutputStream("out.txt") : System.out), true);
+
+        int testCase = fileInOut ? sc.nextInt() : 1;
+
+        for (int i = 0; i < testCase; i++) {
+            int n = sc.nextInt();
+            int k = sc.nextInt();
+
+            new Solution().solution(n, k);
+        }
+
+        if (fileInOut) {
+
+            verify(A_Wrong_Subtraction.class.getResource("ans.txt").getFile());
+        }
+    }
 
     public static void verify(String ansFile) throws IOException {
 
@@ -48,5 +69,18 @@ public class OutputVerifier {
 
         reader1.close();
         reader2.close();
+    }
+}
+
+class Solution {
+
+    public static PrintWriter out;
+
+    public void solution(int n, int k) {
+        for (int i = 0; i < k; i++) {
+            n = n%10 == 0?n/10:n-1;
+        }
+
+        out.println(n);
     }
 }

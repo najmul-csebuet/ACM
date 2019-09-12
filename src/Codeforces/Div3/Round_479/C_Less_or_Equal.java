@@ -1,9 +1,9 @@
-package Codeforces.Round_479_Div3;
+package Codeforces.Div3.Round_479;
 
 import java.io.*;
 import java.util.*;
 
-public class B_Two_gram {
+public class C_Less_or_Equal {
 
     public static void main(String[] args) {
 
@@ -11,30 +11,27 @@ public class B_Two_gram {
         out = new PrintWriter(new BufferedOutputStream(System.out), true);
 
         int n = sc.nextInt();
-        String line = sc.nextLine();
+        int k = sc.nextInt();
 
-        int max = 0;
-        String maxString = "";
-        int current = 0;
+        Integer[] list = new Integer[n];
 
-        for (int i = 0; i <= n - 2; i++) {
-
-            current = 1;
-
-            for (int j = i + 1; j <= n - 2; j++) {
-
-                if(line.charAt(i) == line.charAt(j) && line.charAt(i+1) == line.charAt(j+1)) {
-                    ++current;
-                }
-            }
-
-            if(max < current) {
-                max = current;
-                maxString = "" + line.charAt(i) + line.charAt(i+1);
-            }
+        for(int i = 0; i < n; ++i) {
+            list[i] = sc.nextInt();
         }
 
-        out.println(maxString);
+        Arrays.sort(list);
+
+        if(k == 0) {
+            int t = list[0] - 1;
+            out.println(t < 1 ? -1 : t);
+        }
+        else if(k == n || list[k - 1] < list[k]) {
+            out.println(list[k - 1]);
+        }
+        else {
+            out.println(-1);
+        }
+
         out.close();
     }
 

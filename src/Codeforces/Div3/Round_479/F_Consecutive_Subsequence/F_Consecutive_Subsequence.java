@@ -1,4 +1,4 @@
-package Codeforces.Round_479_Div3.F_Consecutive_Subsequence;
+package Codeforces.Div3.Round_479.F_Consecutive_Subsequence;
 
 import java.io.*;
 import java.util.*;

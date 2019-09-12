@@ -1,4 +1,4 @@
-package Codeforces.Round_479_Div3.E_CyclicComponents;
+package Codeforces.Div3.Round_479.E_CyclicComponents;
 
 import java.io.*;
 import java.util.*;
