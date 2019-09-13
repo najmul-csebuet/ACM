@@ -1,4 +1,4 @@
-package Codeforces.Div3.Round_479.D_DivideByThreeMultiplyByTwo;
+package Codeforces.Div3.Round_479.D_DivideByThreeMultiplyByTwo;import Common.OutputVerifier;
 
 import java.io.*;
 import java.util.*;
@@ -27,66 +27,18 @@ public class D_DivideByThreeMultiplyByTwo {
         }
 
         if (fileInOut) {
-
-            verify(D_DivideByThreeMultiplyByTwo.class.getResource("ans.txt").getFile());
+            OutputVerifier.verify(D_DivideByThreeMultiplyByTwo.class.getResource("ans.txt").getFile());
         }
-    }
-
-    public static void verify(String ansFile) throws IOException {
-
-        String outputFile = "out.txt";
-
-        BufferedReader reader1 = new BufferedReader(new FileReader(ansFile));
-        BufferedReader reader2 = new BufferedReader(new FileReader(outputFile));
-
-        String line1 = reader1.readLine();
-        String line2 = reader2.readLine();
-
-        boolean areEqual = true;
-        int lineNum = 1;
-
-        while (line1 != null || line2 != null) {
-
-            if (line1 == null || line2 == null) {
-
-                areEqual = false;
-                break;
-            } else if (!line1.equals(line2)) {
-
-                areEqual = false;
-                break;
-            }
-
-            line1 = reader1.readLine();
-            line2 = reader2.readLine();
-
-            lineNum++;
-        }
-
-        if (areEqual) {
-
-            System.out.println("All Test Cases Passed !");
-        } else {
-
-            System.out.println("Output differ at line " + lineNum);
-            System.out.println("ans.txt has " + line1 + " and out.txt has " + line2 + " at line " + lineNum);
-        }
-
-        reader1.close();
-        reader2.close();
     }
 }
 
 class Solution {
-
     public static PrintWriter out;
-
-    private int getPowerOf3(Long n) {
-
+    private int pow3(Long n) {
         int count = 0;
-        while (n % 3 == 0) {
-            n /= 3;
+        while(n%3 == 0) {
             ++count;
+            n /= 3;
         }
 
         return count;
@@ -95,22 +47,20 @@ class Solution {
     public void solve(Long[] array) {
 
         Arrays.sort(array, (o1, o2) -> {
+            int a = pow3(o1);
+            int b = pow3(o2);
 
-            int a = getPowerOf3(o1);
-            int b = getPowerOf3(o2);
+            if (a > b) return -1;
+            if (a < b) return 1;
 
-            if(a != b)return b-a;
-            return (int) (o1-o2);
+            return o1 - o2 < 0 ? -1 : 1;
         });
 
-        for (int i = 0; i < array.length; i++) {
-
-            if (i < array.length - 1) {
-                out.print(array[i] + " ");
-            }
-            else {
-                out.println(array[i]);
-            }
+        for (int i = 0; i < array.length-1; i++) {
+            out.print(array[i] + " ");
+        }
+        if(array.length > 0) {
+            out.println(array[array.length - 1]);
         }
     }
 }
