@@ -83,44 +83,41 @@ class Solution {
 
     public void solve(int[] A) {
 
-        int max = 1;
-        int maxIndex = 0;
+        HashMap<Integer, Integer> dp = new HashMap<>();
 
-        int[] Score = new int[A.length];
-        int[] PreviousItem = new int[A.length];
+        for (int i = 0; i < A.length; i++) {
+            Integer max = Math.max(dp.getOrDefault(A[i], 0), dp.getOrDefault(A[i] - 1, 0) + 1);
+            dp.put(A[i], max);
+        }
 
-        for (int i = 1; i < A.length; i++) {
+        Integer maxSeqLength = 0;
+        Integer ai = 0;
+        Integer last = 0;
 
-            int localMax = -1;
-            int localMaxIndex = -1;
-
-            for (int j = 0; j < i; j++) {
-
-                if (A[j] + 1 == A[i]) {
-
-                    if (Score[j] > localMax) {
-                        localMax = Score[j];
-                        localMaxIndex = j;
-                    }
-                }
-            }
-
-            if (localMax != -1) {
-                Score[i] = localMax + 1;
-                PreviousItem[i] = localMaxIndex;
-            }
-
-            if (max < localMax) {
-                max = localMax;
-                maxIndex = localMaxIndex;
+        for (int i = 0; i < A.length; i++) {
+            Integer value = dp.getOrDefault(A[i], 0);
+            if (maxSeqLength < value) {
+                ai = i;
+                last = A[i];
+                maxSeqLength = value;
             }
         }
 
-        out.println(max);
+        ArrayList<Integer> arrayList = new ArrayList<>();
+        for (int i = A.length - 1, j = maxSeqLength; j > 0 && i >= 0; i--) {
+            if (A[i] == last) {
+                arrayList.add(i+1);
+                --last;
+                --j;
+            }
+        }
 
-        int i = maxIndex;
-        //while (true) {
-
-        //}
+        out.println(maxSeqLength);
+        for (int i = arrayList.size() - 1; i > 0; i--) {
+            out.print(arrayList.get(i) + " ");
+        }
+        if (arrayList.size() >= 1) {
+            out.println(arrayList.get(0));
+        }
     }
 }
