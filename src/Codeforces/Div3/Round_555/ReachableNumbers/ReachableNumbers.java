@@ -1,4 +1,4 @@
-package Codeforces.R555D3.ReachableNumbers;
+package Codeforces.Div3.Round_555.ReachableNumbers;
 
 import java.io.*;
 import java.util.*;

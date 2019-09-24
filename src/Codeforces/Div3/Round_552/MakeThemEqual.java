@@ -1,4 +1,4 @@
-package Codeforces.Round552Div3;
+package Codeforces.Div3.Round_552;
 
 import java.io.*;
 import java.util.*;

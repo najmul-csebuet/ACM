@@ -1,4 +1,4 @@
-package Codeforces.R555D3.LongNumber;
+package Codeforces.Div3.Round_555.LongNumber;
 
 import java.io.*;
 import java.util.*;
