@@ -1,28 +1,32 @@
-//package Codeforces.Div2.Round_579.A;
+package Codeforces.Practice;
 
 import java.io.*;
 import java.util.*;
 
-public class A {
+public class InsomniaCure {
+
     public static PrintWriter out;
 
     public static void main(String[] args) throws IOException {
 
-        boolean fileInOut = A.class.getPackage() != null;
+        boolean fileInOut = InsomniaCure.class.getPackage() != null;
 
-        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? A.class.getResourceAsStream("in.txt") : System.in)));
+        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? InsomniaCure.class.getResourceAsStream("in.txt") : System.in)));
         out = new PrintWriter(new BufferedOutputStream(fileInOut ? new FileOutputStream("out.txt") : System.out), true);
 
-        int testCase = fileInOut ? sc.nextInt() : 1;
+        int totalTestCase = fileInOut ? sc.nextInt() : 1;
 
-        for (int i = 0; i < testCase; i++) {
-            int l = sc.nextInt();
-            int r = sc.nextInt();
-            new A().solution(l,r);
+        for (int testCaseNumber = 1; testCaseNumber <= totalTestCase; testCaseNumber++) {
+            int[] divArray = new int[4];
+            for (int i = 0; i < 4; i++) {
+                divArray[i] = sc.nextInt();
+            }
+            int d = sc.nextInt();
+            new InsomniaCure().solve(divArray, d);
         }
 
         if (fileInOut) {
-            verify(A.class.getResource("ans.txt").getFile());
+            verify(InsomniaCure.class.getResource("ans.txt").getFile());
         }
     }
 
@@ -70,31 +74,30 @@ public class A {
         reader2.close();
     }
 
-    public void solution(int l, int r) {
-        for (int i = l; i <= r; i++) {
+    int getGcd(int m, int n) {
+        for (int gcd = Math.min(m,n); gcd > 0; gcd--) {
+            if (m%gcd == 0 && n%gcd == 0)return gcd;
+        }
+        return 1;
+    }
 
-            int n = i;
+    int getLcm(int m, int n) {
+        return m*n / getGcd(m,n);
+    }
 
-            Set<Integer> set = new HashSet<>();
-            boolean hasDuplicate = false;
+    public void solve(int[] divArray, int d) {
 
-            while (n > 0) {
-                int remainder = n % 10;
-                if (set.contains(remainder)) {
-                    hasDuplicate = true;
-                    break;
-                } else {
-                    set.add(remainder);
-                    n /= 10;
-                }
+        int sum = 0;
+        for (int i = 0; i < divArray.length; i++) {
+
+            for (int j = 0; j < i; j++) {
+                int lcm = getLcm(divArray[j], divArray[i]);
+                sum -= (d / lcm);
             }
 
-            if (!hasDuplicate) {
-                out.println(i);
-                return;
-            }
+            sum += (d/divArray[i]);
         }
 
-        out.println(-1);
+        out.println(sum);
     }
 }

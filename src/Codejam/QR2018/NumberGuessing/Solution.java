@@ -1,9 +1,10 @@
-package Codejam.Year2020.Qualification.NumberGuessing;
+package Codejam.QR2018.NumberGuessing;
 
 import java.io.*;
 import java.util.*;
 
 public class Solution {
+
     public static PrintWriter out;
 
     public static void main(String[] args) throws IOException {
@@ -16,7 +17,10 @@ public class Solution {
         int totalTestCase = sc.nextInt();
 
         for (int testCaseNumber = 1; testCaseNumber <= totalTestCase; testCaseNumber++) {
-            new Solution().solve(testCaseNumber);
+            int A = sc.nextInt();
+            int B = sc.nextInt();
+            int N = sc.nextInt();
+            new Solution().solve(testCaseNumber, A+1, B, N, sc);
         }
 
         if (fileInOut) {
@@ -68,7 +72,35 @@ public class Solution {
         reader2.close();
     }
 
-    public void solve(int testCaseNumber) {
+    public void solve(int testCaseNumber, int A, int B, int N, Scanner sc) {
 
+        for (int i = 0; i < N; i++) {
+
+            int guess = (A + B) / 2;
+
+            out.println(guess);
+            out.flush();
+
+            String response = sc.next();
+
+            if (response.equals("CORRECT")) {
+                return;
+            }
+
+            if (response.equals("WRONG_ANSWER")) {
+                return;
+            }
+
+            if (response.equals("TOO_SMALL")) {
+                A = guess + 1;
+            }
+            else if (response.equals("TOO_BIG")) {
+                B = guess - 1;
+            }
+        }
+
+        String response = sc.next();
+        if (response.equals("WRONG_ANSWER")) {
+        }
     }
 }

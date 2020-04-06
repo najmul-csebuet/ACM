@@ -1,4 +1,4 @@
-package Codejam.Year2020.Qualification.ESAbATAd;
+package Codejam.Year2020.Qualification.ESAbATAd.One;
 
 import java.io.*;
 import java.util.*;

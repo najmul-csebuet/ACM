@@ -1,4 +1,4 @@
-package Codeforces.BR95D2.cAPSlOCK;
+package Codeforces.Div2.BR95D2.cAPSlOCK;
 
 import java.io.*;
 import java.util.*;

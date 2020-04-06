@@ -1,4 +1,4 @@
-package Codeforces.BR91D2.LuckyDivision;
+package Codeforces.Div2.BR91D2.LuckyDivision;
 
 import java.io.*;
 import java.util.*;

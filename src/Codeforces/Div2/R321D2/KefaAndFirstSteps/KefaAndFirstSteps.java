@@ -1,4 +1,4 @@
-package Codeforces.R321D2.KefaAndFirstSteps;
+package Codeforces.Div2.R321D2.KefaAndFirstSteps;
 
 import java.io.*;
 import java.util.*;

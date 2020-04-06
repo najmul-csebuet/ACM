@@ -1,4 +1,4 @@
-package Codeforces.BR55D2.Word;
+package Codeforces.Div2.BR55D2.Word;
 
 import java.io.*;
 import java.util.*;

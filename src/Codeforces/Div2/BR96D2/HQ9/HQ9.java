@@ -1,4 +1,4 @@
-package Codeforces.BR96D2.HQ9;
+package Codeforces.Div2.BR96D2.HQ9;
 
 import java.io.*;
 import java.util.*;

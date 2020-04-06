@@ -1,4 +1,4 @@
-package Codeforces.R277D2.CalculatingFunction;
+package Codeforces.Div2.R277D2.CalculatingFunction;
 
 import java.io.*;
 import java.util.*;

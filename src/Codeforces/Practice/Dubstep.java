@@ -1,33 +1,27 @@
-package Codeforces.Div2.BR97D2.Presents;
+//package Codeforces.Practice;
 
 import java.io.*;
 import java.util.*;
 
-public class Presents {
+public class Dubstep {
+
+    public static PrintWriter out;
 
     public static void main(String[] args) throws IOException {
 
-        boolean fileInOut = Presents.class.getPackage() != null;
+        boolean fileInOut = Dubstep.class.getPackage() != null;
 
-        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? Presents.class.getResourceAsStream("in.txt") : System.in)));
-        Solution.out = new PrintWriter(new BufferedOutputStream(fileInOut ? new FileOutputStream("out.txt") : System.out), true);
+        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? Dubstep.class.getResourceAsStream("in.txt") : System.in)));
+        out = new PrintWriter(new BufferedOutputStream(fileInOut ? new FileOutputStream("out.txt") : System.out), true);
 
-        int testCase = fileInOut ? sc.nextInt() : 1;
+        int totalTestCase = fileInOut ? sc.nextInt() : 1;
 
-        for (int i = 0; i < testCase; i++) {
-            int pLength = sc.nextInt();
-            int[] p = new int[pLength];
-            
-            for (int pIndex = 0; pIndex < p.length; pIndex++) {
-                p[pIndex] = sc.nextInt();
-            }
-            
-            new Solution().solve(p);
+        for (int testCaseNumber = 1; testCaseNumber <= totalTestCase; testCaseNumber++) {
+            new Dubstep().solve(sc.next());
         }
 
         if (fileInOut) {
-
-            verify(Presents.class.getResource("ans.txt").getFile());
+            verify(Dubstep.class.getResource("ans.txt").getFile());
         }
     }
 
@@ -74,29 +68,18 @@ public class Presents {
         reader1.close();
         reader2.close();
     }
-}
 
-class Solution {
+    public void solve(String next) {
 
-    public static PrintWriter out;
+        String[] wubs = next.split("WUB");
 
-    public void solve(int[] p) {
-
-        Map<Integer, Integer> map = new HashMap<>();
-
-        for (int i = 0; i < p.length; i++) {
-            map.put(p[i], i+1);
-        }
-
-        for (int i = 1; i <= p.length; i++) {
-
-            Integer giver = map.get(i);
-            out.print(giver);
-
-            if (i != p.length) {
-                out.print(" ");
+        for (int i = 0; i < wubs.length; i++) {
+            if (!wubs[i].isEmpty()) {
+                if(i < wubs.length - 1)
+                    out.print(wubs[i] + " ");
+                else
+                    out.println(wubs[i]);
             }
         }
-        out.println();
     }
 }

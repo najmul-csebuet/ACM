@@ -1,4 +1,4 @@
-package Codeforces.R111D2.Twins;
+package Codeforces.Div2.R111D2.Twins;
 
 import java.io.*;
 import java.util.*;

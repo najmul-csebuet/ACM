@@ -1,4 +1,4 @@
-package Codeforces.BR84D2.NearlyLuckyNumber;
+package Codeforces.Div2.BR84D2.NearlyLuckyNumber;
 
 import java.io.*;
 import java.util.*;

@@ -1,4 +1,4 @@
-package Codeforces.R146D2.BoyOrGirl;
+package Codeforces.Div2.R146D2.BoyOrGirl;
 
 import java.io.*;
 import java.util.*;

@@ -1,4 +1,4 @@
-package Codeforces.BR87D2.Tram;
+package Codeforces.Div2.BR87D2.Tram;
 
 import java.io.*;
 import java.util.*;

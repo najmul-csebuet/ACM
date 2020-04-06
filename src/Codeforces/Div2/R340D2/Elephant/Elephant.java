@@ -1,4 +1,4 @@
-package Codeforces.R340D2.Elephant;
+package Codeforces.Div2.R340D2.Elephant;
 
 import java.io.*;
 import java.util.*;

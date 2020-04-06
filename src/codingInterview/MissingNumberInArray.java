@@ -1,75 +1,53 @@
 package codingInterview;
 
-import java.io.*;
-import java.util.*;
+import java.util.Arrays;
+import java.util.BitSet;
 
 public class MissingNumberInArray {
 
-    public static PrintWriter out;
+    public static void main(String[] args) {
+        // one missing number
+        printMissingNumber(new int[]{1, 2, 3, 4, 6}, 6);
 
-    public static void main(String[] args) throws IOException {
+        // two missing number
+        printMissingNumber(new int[]{1, 2, 3, 4, 6, 7, 9, 8, 10}, 10);
 
-        boolean fileInOut = MissingNumberInArray.class.getPackage() != null;
+        // three missing number
+        printMissingNumber(new int[]{1, 2, 3, 4, 6, 9, 8}, 10);
 
-        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? MissingNumberInArray.class.getResourceAsStream("in.txt") : System.in)));
-        out = new PrintWriter(new BufferedOutputStream(fileInOut ? new FileOutputStream("out.txt") : System.out), true);
+        // four missing number
+        printMissingNumber(new int[]{1, 2, 3, 4, 9, 8}, 10);
 
-        int testCase = fileInOut ? sc.nextInt() : 1;
-
-        for (int i = 0; i < testCase; i++) {
-            new MissingNumberInArray().solution();
-        }
-
-        if (fileInOut) {
-            verify(MissingNumberInArray.class.getResource("ans.txt").getFile());
-        }
+        // Only one missing number in array
+        int[] iArray = new int[]{1, 2, 3, 5};
+        int missing = getMissingNumber(iArray, 5);
+        System.out.printf("Missing number in array %s is %d %n",
+                Arrays.toString(iArray), missing);
     }
 
-    public static void verify(String ansFile) throws IOException {
-
-        String outputFile = "out.txt";
-
-        BufferedReader reader1 = new BufferedReader(new FileReader(ansFile));
-        BufferedReader reader2 = new BufferedReader(new FileReader(outputFile));
-
-        String line1 = reader1.readLine();
-        String line2 = reader2.readLine();
-
-        boolean areEqual = true;
-        int lineNum = 1;
-
-        while (line1 != null || line2 != null) {
-
-            if (line1 == null || line2 == null) {
-
-                areEqual = false;
-                break;
-            } else if (!line1.equals(line2)) {
-
-                areEqual = false;
-                break;
-            }
-
-            line1 = reader1.readLine();
-            line2 = reader2.readLine();
-
-            lineNum++;
+    private static int getMissingNumber(int[] numbers, int totalCount) {
+        int expectedSum = totalCount * ((totalCount + 1) / 2);
+        int actualSum = 0;
+        for (int i : numbers) {
+            actualSum += i;
         }
-
-        if (areEqual) {
-
-            System.out.println("All Test Cases Passed !");
-        } else {
-
-            System.out.println("Output differ at line " + lineNum);
-            System.out.println("ans.txt has " + line1 + " and out.txt has " + line2 + " at line " + lineNum);
-        }
-
-        reader1.close();
-        reader2.close();
+        return expectedSum - actualSum;
     }
 
-    public void solution() {
 
+    private static void printMissingNumber(int[] numbers, int totalShouldBe) {
+        int missing = totalShouldBe - numbers.length;
+        BitSet bitSet = new BitSet(totalShouldBe);
+        for (int num : numbers) {
+            bitSet.set(num - 1);
+        }
+
+        System.out.printf("Missing numbers in integer array %s, with total number %d is %n", Arrays.toString(numbers), totalShouldBe);
+
+        int lastMissingIndex = 0;
+        for (int i = 0; i < missing; i++) {
+            lastMissingIndex = bitSet.nextClearBit(lastMissingIndex);
+            System.out.println(++lastMissingIndex);
+        }
     }
 }

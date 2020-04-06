@@ -3,18 +3,19 @@ package Codejam.Year2020.Qualification.Vestigium;
 import java.io.*;
 import java.util.*;
 
-public class Vestigium {
+public class Solution {
 
     public static PrintWriter out;
 
     public static void main(String[] args) throws IOException   {
 
-        boolean fileInOut = Vestigium.class.getPackage() != null;
+        boolean fileInOut = Solution.class.getPackage() != null;
 
-        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? Vestigium.class.getResourceAsStream("in.txt") : System.in)));
+        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? Solution.class.getResourceAsStream("in.txt") : System.in)));
         out = new PrintWriter(new BufferedOutputStream(fileInOut ? new FileOutputStream("out.txt") : System.out), true);
 
-        int testCase = fileInOut ? sc.nextInt() : 1;
+//        int testCase = fileInOut ? sc.nextInt() : 1;
+        int testCase = sc.nextInt();
 
         for (int i = 1; i <= testCase; i++) {
             int n = sc.nextInt();
@@ -25,11 +26,11 @@ public class Vestigium {
                     mat[j][k] = val;
                 }
             }
-            new Vestigium().solution(i, mat, n);
+            new Solution().solution(i, mat, n);
         }
 
         if (fileInOut) {
-            verify(Vestigium.class.getResource("ans.txt").getFile());
+            verify(Solution.class.getResource("ans.txt").getFile());
         }
     }
 

@@ -1,4 +1,4 @@
-package Codeforces.R304D2.SoldierAndBananas;
+package Codeforces.Div2.R304D2.SoldierAndBananas;
 
 import java.io.*;
 import java.util.*;

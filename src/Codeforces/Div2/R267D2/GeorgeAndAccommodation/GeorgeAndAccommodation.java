@@ -1,4 +1,4 @@
-package Codeforces.R267D2.GeorgeAndAccommodation;
+package Codeforces.Div2.R267D2.GeorgeAndAccommodation;
 
 import java.io.*;
 import java.util.*;

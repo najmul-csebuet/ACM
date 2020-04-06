@@ -1,4 +1,4 @@
-package Codeforces.R163D2.QueueAtTheSchool;
+package Codeforces.Div2.R163D2.QueueAtTheSchool;
 
 import java.io.*;
 import java.util.*;
