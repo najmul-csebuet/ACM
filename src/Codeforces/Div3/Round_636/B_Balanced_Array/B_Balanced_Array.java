@@ -1,32 +1,28 @@
-package Codeforces.Practice;
+//package Codeforces.Div3.Round_636.B_Balanced_Array;
 
 import java.io.*;
 import java.util.*;
 
-public class InsomniaCure {
+public class B_Balanced_Array {
 
     public static PrintWriter out;
 
     public static void main(String[] args) throws IOException {
 
-        boolean fileInOut = InsomniaCure.class.getPackage() != null;
+        boolean fileInOut = B_Balanced_Array.class.getPackage() != null;
 
-        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? InsomniaCure.class.getResourceAsStream("in.txt") : System.in)));
+        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? B_Balanced_Array.class.getResourceAsStream("in.txt") : System.in)));
         out = new PrintWriter(new BufferedOutputStream(fileInOut ? new FileOutputStream("out.txt") : System.out), true);
 
-        int totalTestCase = fileInOut ? sc.nextInt() : 1;
+        int testCase = sc.nextInt();//fileInOut ? sc.nextInt() : 1;
 
-        for (int testCaseNumber = 1; testCaseNumber <= totalTestCase; testCaseNumber++) {
-            int[] divArray = new int[4];
-            for (int i = 0; i < 4; i++) {
-                divArray[i] = sc.nextInt();
-            }
-            int d = sc.nextInt();
-            new InsomniaCure().solve(divArray, d);
+        for (int i = 0; i < testCase; i++) {
+            int N = sc.nextInt();
+            new B_Balanced_Array().solution(N);
         }
 
         if (fileInOut) {
-            verify(InsomniaCure.class.getResource("ans.txt").getFile());
+            verify(B_Balanced_Array.class.getResource("ans.txt").getFile());
         }
     }
 
@@ -74,30 +70,22 @@ public class InsomniaCure {
         reader2.close();
     }
 
-    int getGcd(int m, int n) {
-        for (int gcd = Math.min(m,n); gcd > 0; gcd--) {
-            if (m%gcd == 0 && n%gcd == 0)return gcd;
-        }
-        return 1;
-    }
-
-    int getLcm(int m, int n) {
-        return m*n / getGcd(m,n);
-    }
-
-    public void solve(int[] divArray, int d) {
-
-        int sum = 0;
-        for (int i = 0; i < divArray.length; i++) {
-
-            for (int j = 0; j < i; j++) {
-                int lcm = getLcm(divArray[j], divArray[i]);
-                sum -= (d / lcm);
-            }
-
-            sum += (d/divArray[i]);
+    public void solution(int n) {
+        if ((n/2) % 2 == 1) {
+            out.println("NO");
+            return;
         }
 
-        out.println(sum);
+        out.println("YES");
+
+        for (int i = 2; i <= n; i+=2) {
+            out.print( i + " ");
+        }
+
+        for (int i = 1; i < n-1; i+=2) {
+            out.print( i + " ");
+        }
+
+        out.println( (n - 1) + (n >> 1));
     }
 }

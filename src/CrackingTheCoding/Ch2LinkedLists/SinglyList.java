@@ -149,5 +149,89 @@ public class SinglyList {
         int target = size + 1 - n;
         return getNthNodeFromFront(target);
     }
+
+    public boolean remove(Node nthNodeFromFront) {
+        if (nthNodeFromFront == null || nthNodeFromFront.next == null)return false;
+        nthNodeFromFront.data = nthNodeFromFront.next.data;
+        nthNodeFromFront.next = nthNodeFromFront.next.next;
+        return true;
+    }
+
+    public SinglyList partitionBy(int x) {
+
+        SinglyList listLeft = new SinglyList();
+        SinglyList listRight = new SinglyList();
+
+        Node p = head;
+        while (p != null) {
+            if(p.data < x) {
+                listLeft.addToBack(p.data);
+            }
+            else {
+                listRight.addToBack(p.data);
+            }
+            p = p.next;
+        }
+
+        listLeft.concatenate(listRight);
+        return listLeft;
+    }
+
+    private void concatenate(SinglyList listRight) {
+        Node p = listRight.head;
+        while (p != null) {
+            addToBack(p.data);
+            p = p.next;
+        }
+    }
+
+    public SinglyList sumListsAndGetResult(SinglyList second) {
+
+        int carry = 0;
+        SinglyList result = new SinglyList();
+
+        Node p = head;
+        Node q = second.head;
+
+        while (p != null && q != null) {
+            int r = carry + p.data + q.data;
+            carry = r / 10;
+            result.addToBack(r % 10);
+            p = p.next;
+            q = q.next;
+        }
+
+        p = p != null ? p : q;
+        while (p != null) {
+            int r = carry + p.data;
+            carry = r / 10;
+            result.addToBack(r % 10);
+            p = p.next;
+        }
+
+        if (carry > 0) {
+            result.addToBack(carry);
+        }
+
+        return result;
+    }
+
+    public SinglyList getReversed() {
+        return getReversed(head);
+    }
+
+    public SinglyList getReversed(Node p) {
+        if (p == null)
+            return null;
+        if (p.next == null) {
+            SinglyList list = new SinglyList();
+            list.addToBack(p.data);
+            return list;
+        }
+
+        SinglyList reverse = getReversed(p.next);
+        reverse.addToBack(p.data);
+        return reverse;
+    }
 }
 
