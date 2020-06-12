@@ -1,27 +1,27 @@
-package Codeforces.Practice;
+package Codeforces.Practice.Adhoc;//package Codeforces.Practice;
 
 import java.io.*;
 import java.util.*;
 
-public class Hulk {
+public class Dubstep {
 
     public static PrintWriter out;
 
     public static void main(String[] args) throws IOException {
 
-        boolean fileInOut = Hulk.class.getPackage() != null;
+        boolean fileInOut = Dubstep.class.getPackage() != null;
 
-        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? Hulk.class.getResourceAsStream("in.txt") : System.in)));
+        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? Dubstep.class.getResourceAsStream("in.txt") : System.in)));
         out = new PrintWriter(new BufferedOutputStream(fileInOut ? new FileOutputStream("out.txt") : System.out), true);
 
         int totalTestCase = fileInOut ? sc.nextInt() : 1;
 
         for (int testCaseNumber = 1; testCaseNumber <= totalTestCase; testCaseNumber++) {
-            new Hulk().solve(sc.nextInt());
+            new Dubstep().solve(sc.next());
         }
 
         if (fileInOut) {
-            verify(Hulk.class.getResource("ans.txt").getFile());
+            verify(Dubstep.class.getResource("ans.txt").getFile());
         }
     }
 
@@ -69,19 +69,17 @@ public class Hulk {
         reader2.close();
     }
 
-    public void solve(int n) {
-        String hate = "I hate that";
-        String love = "I love that";
-        String feelings = "";
+    public void solve(String next) {
 
-        for (int i = 0; i < n - 1; i++) {
-            if (i%2 == 1)feelings += (love + " ");
-            else feelings += (hate + " ");
+        String[] wubs = next.split("WUB");
+
+        for (int i = 0; i < wubs.length; i++) {
+            if (!wubs[i].isEmpty()) {
+                if(i < wubs.length - 1)
+                    out.print(wubs[i] + " ");
+                else
+                    out.println(wubs[i]);
+            }
         }
-
-        if (n%2 == 1)feelings += "I hate it";
-        else feelings += "I love it";
-
-        out.println(feelings);
     }
 }

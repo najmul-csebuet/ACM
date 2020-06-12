@@ -1,4 +1,4 @@
-package Codeforces.Practice.BearAndBigBrother;
+package Codeforces.Practice.Adhoc.BearAndBigBrother;
 
 import java.io.*;
 import java.util.*;

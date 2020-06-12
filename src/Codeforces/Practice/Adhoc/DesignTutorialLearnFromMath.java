@@ -1,36 +1,38 @@
-//package Codeforces.Practice;
+package Codeforces.Practice.Adhoc;
 
 import java.io.*;
 import java.util.*;
 
-public class VanyaandLanterns {
+public class DesignTutorialLearnFromMath {
+
+    public void solve(int n) {
+        if (n%2 == 0) {
+            out.printf("%d %d\n", n-4, 4);
+        }
+        else {
+            out.printf("%d %d\n", n-9, 9);
+        }
+    }
 
     public static PrintWriter out;
-
     public static void main(String[] args) throws IOException {
 
-        boolean fileInOut = VanyaandLanterns.class.getPackage() != null;
+        boolean fileInOut = DesignTutorialLearnFromMath.class.getPackage() != null;
 
-        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? VanyaandLanterns.class.getResourceAsStream("in.txt") : System.in)));
+        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? DesignTutorialLearnFromMath.class.getResourceAsStream("in.txt") : System.in)));
         out = new PrintWriter(new BufferedOutputStream(fileInOut ? new FileOutputStream("out.txt") : System.out), true);
 
         int totalTestCase = fileInOut ? sc.nextInt() : 1;
 
         for (int testCaseNumber = 1; testCaseNumber <= totalTestCase; testCaseNumber++) {
             int N = sc.nextInt();
-            int L = sc.nextInt();
-            int lights[] = new int[N];
-            for (int i = 0; i < N; i++) {
-                lights[i] = sc.nextInt();
-            }
-            new VanyaandLanterns().solve(N, L, lights);
+            new DesignTutorialLearnFromMath().solve(N);
         }
 
         if (fileInOut) {
-            verify(VanyaandLanterns.class.getResource("ans.txt").getFile());
+            verify(DesignTutorialLearnFromMath.class.getResource("ans.txt").getFile());
         }
     }
-
     public static void verify(String ansFile) throws IOException {
 
         String outputFile = "out.txt";
@@ -73,34 +75,5 @@ public class VanyaandLanterns {
 
         reader1.close();
         reader2.close();
-    }
-
-    public void solve(int n, int l, int[] lights) {
-
-        Arrays.sort(lights);
-
-        double leftD = 0;
-        double rightD = 0;
-        double middleD = 0;
-
-        if (lights[0] != 0) {
-            leftD = lights[0];
-        }
-
-        if (lights[n - 1] != l) {
-            rightD = l - lights[n - 1];
-        }
-
-        for (int i = 0; i < n - 1; i++) {
-            double t = lights[i + 1] - lights[i];
-            if (middleD < t) {
-                middleD = t;
-            }
-        }
-
-        middleD /= 2.0;
-
-        double max = Math.max(Math.max(leftD, rightD), middleD);
-        out.printf("%.10f\n", max);
     }
 }

@@ -1,4 +1,4 @@
-package Codeforces.Practice;
+package Codeforces.Practice.Adhoc;
 
 import java.io.*;
 import java.util.*;

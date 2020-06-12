@@ -1,27 +1,32 @@
-//package Codeforces.Practice;
+package Codeforces.Practice.Adhoc;
 
 import java.io.*;
 import java.util.*;
 
-public class Dubstep {
+public class GravityFlip {
 
     public static PrintWriter out;
 
     public static void main(String[] args) throws IOException {
 
-        boolean fileInOut = Dubstep.class.getPackage() != null;
+        boolean fileInOut = GravityFlip.class.getPackage() != null;
 
-        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? Dubstep.class.getResourceAsStream("in.txt") : System.in)));
+        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? GravityFlip.class.getResourceAsStream("in.txt") : System.in)));
         out = new PrintWriter(new BufferedOutputStream(fileInOut ? new FileOutputStream("out.txt") : System.out), true);
 
         int totalTestCase = fileInOut ? sc.nextInt() : 1;
 
         for (int testCaseNumber = 1; testCaseNumber <= totalTestCase; testCaseNumber++) {
-            new Dubstep().solve(sc.next());
+            int N = sc.nextInt();
+            List<Integer> list = new ArrayList<>();
+            for (int i = 0; i < N; i++) {
+                list.add(sc.nextInt());
+            }
+            new GravityFlip().solve(list);
         }
 
         if (fileInOut) {
-            verify(Dubstep.class.getResource("ans.txt").getFile());
+            verify(GravityFlip.class.getResource("ans.txt").getFile());
         }
     }
 
@@ -69,17 +74,27 @@ public class Dubstep {
         reader2.close();
     }
 
-    public void solve(String next) {
+    public void solve(List<Integer> list) {
+        boolean anyChange;
 
-        String[] wubs = next.split("WUB");
-
-        for (int i = 0; i < wubs.length; i++) {
-            if (!wubs[i].isEmpty()) {
-                if(i < wubs.length - 1)
-                    out.print(wubs[i] + " ");
-                else
-                    out.println(wubs[i]);
+        do {
+            anyChange = false;
+            for (int i = list.size() - 1; i > 0; i--) {
+                if (list.get(i-1) <= list.get(i)) {
+                    continue;
+                }
+                int t = list.get(i-1);
+                list.set(i-1, list.get(i));
+                list.set(i, t);
+                anyChange = true;
             }
         }
+        while (anyChange);
+
+        for (int i = 0; i < list.size() - 1; i++) {
+            out.print(list.get(i) + " ");
+        }
+
+        out.println(list.get(list.size() - 1));
     }
 }

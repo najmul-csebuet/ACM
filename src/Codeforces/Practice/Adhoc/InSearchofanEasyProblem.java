@@ -1,27 +1,37 @@
-//package Codeforces.Practice.AntonAndDanik;
+package Codeforces.Practice.Adhoc;
 
 import java.io.*;
 import java.util.*;
 
-public class AntonAndDanik {
+public class InSearchofanEasyProblem {
 
     public static PrintWriter out;
 
     public static void main(String[] args) throws IOException {
 
-        boolean fileInOut = AntonAndDanik.class.getPackage() != null;
+        boolean fileInOut = InSearchofanEasyProblem.class.getPackage() != null;
 
-        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? AntonAndDanik.class.getResourceAsStream("in.txt") : System.in)));
+        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? InSearchofanEasyProblem.class.getResourceAsStream("in.txt") : System.in)));
         out = new PrintWriter(new BufferedOutputStream(fileInOut ? new FileOutputStream("out.txt") : System.out), true);
 
         int totalTestCase = fileInOut ? sc.nextInt() : 1;
 
         for (int testCaseNumber = 1; testCaseNumber <= totalTestCase; testCaseNumber++) {
-            new AntonAndDanik().solve(sc.nextInt(), sc.next());
+            int N = sc.nextInt();
+            for (int i = 0; i < N; i++) {
+                int i1 = sc.nextInt();
+                if (i1 == 1) {
+                    out.println("HARD");
+                    return;
+                }
+            }
+
+            out.println("EASY");
+            //new InSearchofanEasyProblem().solve();
         }
 
         if (fileInOut) {
-            verify(AntonAndDanik.class.getResource("ans.txt").getFile());
+            verify(InSearchofanEasyProblem.class.getResource("ans.txt").getFile());
         }
     }
 
@@ -69,15 +79,7 @@ public class AntonAndDanik {
         reader2.close();
     }
 
-    public void solve(int n, String next) {
-        int a = 0, b = 0;
-        for (int i = 0; i < next.length(); i++) {
-            if (next.charAt(i) == 'A')++a;
-            else ++b;
-        }
+    public void solve() {
 
-        if (a > b)out.println("Anton");
-        else if (a < b)out.println("Danik");
-        else out.println("Friendship");
     }
 }

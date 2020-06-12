@@ -1,37 +1,27 @@
-package Codeforces.Practice;
+package Codeforces.Practice.Adhoc;
 
 import java.io.*;
 import java.util.*;
 
-public class InSearchofanEasyProblem {
+public class EvenOdds {
 
     public static PrintWriter out;
 
     public static void main(String[] args) throws IOException {
 
-        boolean fileInOut = InSearchofanEasyProblem.class.getPackage() != null;
+        boolean fileInOut = EvenOdds.class.getPackage() != null;
 
-        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? InSearchofanEasyProblem.class.getResourceAsStream("in.txt") : System.in)));
+        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? EvenOdds.class.getResourceAsStream("in.txt") : System.in)));
         out = new PrintWriter(new BufferedOutputStream(fileInOut ? new FileOutputStream("out.txt") : System.out), true);
 
         int totalTestCase = fileInOut ? sc.nextInt() : 1;
 
         for (int testCaseNumber = 1; testCaseNumber <= totalTestCase; testCaseNumber++) {
-            int N = sc.nextInt();
-            for (int i = 0; i < N; i++) {
-                int i1 = sc.nextInt();
-                if (i1 == 1) {
-                    out.println("HARD");
-                    return;
-                }
-            }
-
-            out.println("EASY");
-            //new InSearchofanEasyProblem().solve();
+            new EvenOdds().solve(sc.nextLong(), sc.nextLong());
         }
 
         if (fileInOut) {
-            verify(InSearchofanEasyProblem.class.getResource("ans.txt").getFile());
+            verify(EvenOdds.class.getResource("ans.txt").getFile());
         }
     }
 
@@ -79,7 +69,9 @@ public class InSearchofanEasyProblem {
         reader2.close();
     }
 
-    public void solve() {
-
+    public void solve(long n, long k) {
+        long odd = (n+1)/2;
+        if (k<=odd)out.println(2*k-1);
+        else out.println(2*(k-odd));
     }
 }

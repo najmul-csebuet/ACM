@@ -1,27 +1,33 @@
-package Codeforces.Practice;
+package Codeforces.Practice.Adhoc;//package Codeforces.Practice;
 
 import java.io.*;
 import java.util.*;
 
-public class EvenOdds {
+public class VanyaandLanterns {
 
     public static PrintWriter out;
 
     public static void main(String[] args) throws IOException {
 
-        boolean fileInOut = EvenOdds.class.getPackage() != null;
+        boolean fileInOut = VanyaandLanterns.class.getPackage() != null;
 
-        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? EvenOdds.class.getResourceAsStream("in.txt") : System.in)));
+        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? VanyaandLanterns.class.getResourceAsStream("in.txt") : System.in)));
         out = new PrintWriter(new BufferedOutputStream(fileInOut ? new FileOutputStream("out.txt") : System.out), true);
 
         int totalTestCase = fileInOut ? sc.nextInt() : 1;
 
         for (int testCaseNumber = 1; testCaseNumber <= totalTestCase; testCaseNumber++) {
-            new EvenOdds().solve(sc.nextLong(), sc.nextLong());
+            int N = sc.nextInt();
+            int L = sc.nextInt();
+            int lights[] = new int[N];
+            for (int i = 0; i < N; i++) {
+                lights[i] = sc.nextInt();
+            }
+            new VanyaandLanterns().solve(N, L, lights);
         }
 
         if (fileInOut) {
-            verify(EvenOdds.class.getResource("ans.txt").getFile());
+            verify(VanyaandLanterns.class.getResource("ans.txt").getFile());
         }
     }
 
@@ -69,9 +75,32 @@ public class EvenOdds {
         reader2.close();
     }
 
-    public void solve(long n, long k) {
-        long odd = (n+1)/2;
-        if (k<=odd)out.println(2*k-1);
-        else out.println(2*(k-odd));
+    public void solve(int n, int l, int[] lights) {
+
+        Arrays.sort(lights);
+
+        double leftD = 0;
+        double rightD = 0;
+        double middleD = 0;
+
+        if (lights[0] != 0) {
+            leftD = lights[0];
+        }
+
+        if (lights[n - 1] != l) {
+            rightD = l - lights[n - 1];
+        }
+
+        for (int i = 0; i < n - 1; i++) {
+            double t = lights[i + 1] - lights[i];
+            if (middleD < t) {
+                middleD = t;
+            }
+        }
+
+        middleD /= 2.0;
+
+        double max = Math.max(Math.max(leftD, rightD), middleD);
+        out.printf("%.10f\n", max);
     }
 }

@@ -1,38 +1,30 @@
-package Codeforces.Practice;
+package Codeforces.Practice.Adhoc;
 
 import java.io.*;
 import java.util.*;
 
-public class DesignTutorialLearnFromMath {
-
-    public void solve(int n) {
-        if (n%2 == 0) {
-            out.printf("%d %d\n", n-4, 4);
-        }
-        else {
-            out.printf("%d %d\n", n-9, 9);
-        }
-    }
+public class Hulk {
 
     public static PrintWriter out;
+
     public static void main(String[] args) throws IOException {
 
-        boolean fileInOut = DesignTutorialLearnFromMath.class.getPackage() != null;
+        boolean fileInOut = Hulk.class.getPackage() != null;
 
-        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? DesignTutorialLearnFromMath.class.getResourceAsStream("in.txt") : System.in)));
+        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? Hulk.class.getResourceAsStream("in.txt") : System.in)));
         out = new PrintWriter(new BufferedOutputStream(fileInOut ? new FileOutputStream("out.txt") : System.out), true);
 
         int totalTestCase = fileInOut ? sc.nextInt() : 1;
 
         for (int testCaseNumber = 1; testCaseNumber <= totalTestCase; testCaseNumber++) {
-            int N = sc.nextInt();
-            new DesignTutorialLearnFromMath().solve(N);
+            new Hulk().solve(sc.nextInt());
         }
 
         if (fileInOut) {
-            verify(DesignTutorialLearnFromMath.class.getResource("ans.txt").getFile());
+            verify(Hulk.class.getResource("ans.txt").getFile());
         }
     }
+
     public static void verify(String ansFile) throws IOException {
 
         String outputFile = "out.txt";
@@ -75,5 +67,21 @@ public class DesignTutorialLearnFromMath {
 
         reader1.close();
         reader2.close();
+    }
+
+    public void solve(int n) {
+        String hate = "I hate that";
+        String love = "I love that";
+        String feelings = "";
+
+        for (int i = 0; i < n - 1; i++) {
+            if (i%2 == 1)feelings += (love + " ");
+            else feelings += (hate + " ");
+        }
+
+        if (n%2 == 1)feelings += "I hate it";
+        else feelings += "I love it";
+
+        out.println(feelings);
     }
 }

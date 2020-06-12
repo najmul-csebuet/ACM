@@ -1,32 +1,27 @@
-package Codeforces.Practice;
+package Codeforces.Practice.Adhoc.AntonAndDanik;//package Codeforces.Practice.AntonAndDanik;
 
 import java.io.*;
 import java.util.*;
 
-public class GravityFlip {
+public class AntonAndDanik {
 
     public static PrintWriter out;
 
     public static void main(String[] args) throws IOException {
 
-        boolean fileInOut = GravityFlip.class.getPackage() != null;
+        boolean fileInOut = AntonAndDanik.class.getPackage() != null;
 
-        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? GravityFlip.class.getResourceAsStream("in.txt") : System.in)));
+        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? AntonAndDanik.class.getResourceAsStream("in.txt") : System.in)));
         out = new PrintWriter(new BufferedOutputStream(fileInOut ? new FileOutputStream("out.txt") : System.out), true);
 
         int totalTestCase = fileInOut ? sc.nextInt() : 1;
 
         for (int testCaseNumber = 1; testCaseNumber <= totalTestCase; testCaseNumber++) {
-            int N = sc.nextInt();
-            List<Integer> list = new ArrayList<>();
-            for (int i = 0; i < N; i++) {
-                list.add(sc.nextInt());
-            }
-            new GravityFlip().solve(list);
+            new AntonAndDanik().solve(sc.nextInt(), sc.next());
         }
 
         if (fileInOut) {
-            verify(GravityFlip.class.getResource("ans.txt").getFile());
+            verify(AntonAndDanik.class.getResource("ans.txt").getFile());
         }
     }
 
@@ -74,27 +69,15 @@ public class GravityFlip {
         reader2.close();
     }
 
-    public void solve(List<Integer> list) {
-        boolean anyChange;
-
-        do {
-            anyChange = false;
-            for (int i = list.size() - 1; i > 0; i--) {
-                if (list.get(i-1) <= list.get(i)) {
-                    continue;
-                }
-                int t = list.get(i-1);
-                list.set(i-1, list.get(i));
-                list.set(i, t);
-                anyChange = true;
-            }
-        }
-        while (anyChange);
-
-        for (int i = 0; i < list.size() - 1; i++) {
-            out.print(list.get(i) + " ");
+    public void solve(int n, String next) {
+        int a = 0, b = 0;
+        for (int i = 0; i < next.length(); i++) {
+            if (next.charAt(i) == 'A')++a;
+            else ++b;
         }
 
-        out.println(list.get(list.size() - 1));
+        if (a > b)out.println("Anton");
+        else if (a < b)out.println("Danik");
+        else out.println("Friendship");
     }
 }

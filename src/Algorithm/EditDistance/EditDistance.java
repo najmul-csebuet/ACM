@@ -1,49 +1,48 @@
-//package Codeforces.Practice;
+package Algorithm.EditDistance;
 
 import java.io.*;
 import java.util.*;
 
-public class HitTheLottery {
+public class EditDistance {
 
-    public void solve(int n) {
+    public int solve(String source, String target) {
 
-        int n100 = n / 100;
-        n %= 100;
+        if (source.isEmpty())return target.length();
+        if (target.isEmpty())return source.length();
 
-        int n20 = n / 20;
-        n %= 20;
+        int insertCase = solve(source, target.substring(1)) + 1;
+        int deleteCase = solve(source.substring(1), target) + 1;
+        int subCost = source.charAt(0) == target.charAt(0) ? 0 : 1;
+        int substitutionCase = solve(source.substring(1), target.substring(1)) + subCost;
 
-        int n10 = n / 10;
-        n %= 10;
+        int min = Math.min(Math.min(insertCase, deleteCase), substitutionCase);
 
-        int n5 = n / 5;
-        n %= 5;
-
-        int n1 = n;
-
-        out.println(n100 + n20 + n10 + n5 + n1);
+        //System.out.println(source + ", " + target + " = " + min);
+        return min;
     }
 
     public static PrintWriter out;
     public static void main(String[] args) throws IOException {
 
-        boolean fileInOut = HitTheLottery.class.getPackage() != null;
+        boolean fileInOut = EditDistance.class.getPackage() != null;
 
-        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? HitTheLottery.class.getResourceAsStream("in.txt") : System.in)));
+        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? EditDistance.class.getResourceAsStream("in.txt") : System.in)));
         out = new PrintWriter(new BufferedOutputStream(fileInOut ? new FileOutputStream("out.txt") : System.out), true);
 
-        int totalTestCase = fileInOut ? sc.nextInt() : 1;
+        int totalTestCase = sc.nextInt();
 
         for (int testCaseNumber = 1; testCaseNumber <= totalTestCase; testCaseNumber++) {
-            int N = sc.nextInt();
-            new HitTheLottery().solve(N);
+            String source = sc.next();
+            String target = sc.next();
+            int solve = new EditDistance().solve(source, target);
+            out.println(solve);
         }
 
         if (fileInOut) {
 
             String outputFile = "out.txt";
 
-            BufferedReader reader1 = new BufferedReader(new FileReader(HitTheLottery.class.getResource("ans.txt").getFile()));
+            BufferedReader reader1 = new BufferedReader(new FileReader(EditDistance.class.getResource("ans.txt").getFile()));
             BufferedReader reader2 = new BufferedReader(new FileReader(outputFile));
 
             String line1 = reader1.readLine();
