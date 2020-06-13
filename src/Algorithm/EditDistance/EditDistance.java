@@ -5,19 +5,33 @@ import java.util.*;
 
 public class EditDistance {
 
-    public int solve(String source, String target) {
+    int[][] dp = new int[100][100];
 
-        if (source.isEmpty())return target.length();
-        if (target.isEmpty())return source.length();
+    public int solve(String source, String target, int sourceStart, int targetStart) {
 
-        int insertCase = solve(source, target.substring(1)) + 1;
-        int deleteCase = solve(source.substring(1), target) + 1;
-        int subCost = source.charAt(0) == target.charAt(0) ? 0 : 1;
-        int substitutionCase = solve(source.substring(1), target.substring(1)) + subCost;
+        if (dp[sourceStart][targetStart] > 0) {
+            //System.out.println("Cache Hit");
+            return dp[sourceStart][targetStart];
+        }
+
+        if (source.length() == sourceStart) {
+            return target.length() - targetStart;
+        }
+
+        if (target.length() == targetStart) {
+            return source.length() - sourceStart;
+        }
+
+        int insertCase = solve(source, target, sourceStart, targetStart + 1) + 1;
+        int deleteCase = solve(source, target, sourceStart + 1, targetStart) + 1;
+        int subCost = source.charAt(sourceStart) == target.charAt(targetStart) ? 0 : 1;
+        int substitutionCase = solve(source, target, sourceStart + 1, targetStart + 1) + subCost;
 
         int min = Math.min(Math.min(insertCase, deleteCase), substitutionCase);
 
-        //System.out.println(source + ", " + target + " = " + min);
+        dp[sourceStart][targetStart] = min;
+
+        //out.println(source.substring(0, sourceStart) + ", " + target.substring(0, targetStart) + " = " + min);
         return min;
     }
 
@@ -34,7 +48,7 @@ public class EditDistance {
         for (int testCaseNumber = 1; testCaseNumber <= totalTestCase; testCaseNumber++) {
             String source = sc.next();
             String target = sc.next();
-            int solve = new EditDistance().solve(source, target);
+            int solve = new EditDistance().solve(source, target, 0, 0);
             out.println(solve);
         }
 
