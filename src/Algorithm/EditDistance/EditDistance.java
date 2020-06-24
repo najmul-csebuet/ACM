@@ -10,7 +10,6 @@ public class EditDistance {
     public int solve(String source, String target, int sourceStart, int targetStart) {
 
         if (dp[sourceStart][targetStart] > 0) {
-            //System.out.println("Cache Hit");
             return dp[sourceStart][targetStart];
         }
 
@@ -31,7 +30,6 @@ public class EditDistance {
 
         dp[sourceStart][targetStart] = min;
 
-        //out.println(source.substring(0, sourceStart) + ", " + target.substring(0, targetStart) + " = " + min);
         return min;
     }
 
