@@ -1,59 +1,52 @@
-package Codeforces.Contest.Div3.R479.D;
+package Codeforces.Contest.Div3.R_555.B;
 
 import java.io.*;
 import java.util.*;
 
-public class D {
+public class B {
 
-    private int pow3(Long num) {
-        int count = 0;
-        while (num%3L == 0L) {
-            num /= 3L;
-            ++count;
+    public void solve(int n, String a, int[] digitMapping) {
+
+        boolean started = false;
+        StringBuilder stringBuilder = new StringBuilder(a);
+
+        for (int i = 0; i < a.length(); i++) {
+            int charAt = stringBuilder.charAt(i) - '0';
+
+            if (charAt >= digitMapping[charAt] && !started)continue;
+            if (charAt > digitMapping[charAt] && started)break;
+
+            stringBuilder.setCharAt(i, (char) (digitMapping[charAt] + '0'));
+            started = true;
         }
-        return count;
-    }
-
-    public void solve(Long[] a) {
-        Arrays.sort(a, (t,e) -> {
-            if (pow3(t) > pow3(e))return -1;
-            if (pow3(t) < pow3(e))return +1;
-            if (t <= e)return -1;
-            return +1;
-        });
-
-        for (int i = 0; i < a.length - 1; i++) {
-            out.print(a[i] + " ");
-        }
-        out.println(a[a.length - 1]);
+        out.println(stringBuilder);
     }
 
     public static PrintWriter out;
     public static void main(String[] args) throws IOException {
 
-        boolean fileInOut = D.class.getPackage() != null;
+        boolean fileInOut = B.class.getPackage() != null;
 
-        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? D.class.getResourceAsStream("in.txt") : System.in)));
+        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? B.class.getResourceAsStream("in.txt") : System.in)));
         out = new PrintWriter(new BufferedOutputStream(fileInOut ? new FileOutputStream("out.txt") : System.out), true);
 
         int totalTestCase = fileInOut ? sc.nextInt() : 1;
 
         for (int testCaseNumber = 1; testCaseNumber <= totalTestCase; testCaseNumber++) {
-            int aLength = sc.nextInt();
-            Long[] a = new Long[aLength];
-
-            for (int aIndex = 0; aIndex < a.length; aIndex++) {
-                a[aIndex] = sc.nextLong();
+            int N = sc.nextInt();
+            String A = sc.next();
+            int[] digitMapping = new int[10];
+            for (int i = 1; i <= 9; i++) {
+                digitMapping[i] = sc.nextInt();
             }
-
-            new D().solve(a);
+            new B().solve(N, A, digitMapping);
         }
 
         if (fileInOut) {
 
             String outputFile = "out.txt";
 
-            BufferedReader reader1 = new BufferedReader(new FileReader(D.class.getResource("ans.txt").getFile()));
+            BufferedReader reader1 = new BufferedReader(new FileReader(B.class.getResource("ans.txt").getFile()));
             BufferedReader reader2 = new BufferedReader(new FileReader(outputFile));
 
             String line1 = reader1.readLine();
