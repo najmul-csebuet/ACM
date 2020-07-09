@@ -6,21 +6,32 @@ import java.util.*;
 public class D {
 
     public void solve(Integer[] n, Integer k) {
-        Arrays.sort(n, Collections.reverseOrder());
 
-        int count = 0;
-        int x = 0;
-        for (int i = 0; i < n.length; i++) {
-            if (n[i] == 0)break;
-            if (x == 0) {
-                ++count;
-                ++x;
-                continue;
-            }
-            count += k - n[i];
-            x += (k - n[i] + 1);
+        HashMap<Integer, Integer> hashMap = new HashMap<>();
+        for (Integer a:n) {
+            if (a == 0)continue;
+            hashMap.put(a, hashMap.getOrDefault(a, 0) + 1);
         }
-        out.println(count);
+
+        if (hashMap.size() == 0) {
+            out.println(0);
+            return;
+        }
+
+        Integer maxKey = -1, maxValue = -1;
+        for (Integer key: hashMap.keySet()) {
+            if (hashMap.get(key) > maxValue) {
+                maxKey = key;
+                maxValue = hashMap.get(key);
+            }
+            else if (hashMap.get(key).equals(maxValue) && key < maxKey) {
+                maxKey = key;
+                maxValue = hashMap.get(key);
+            }
+        }
+
+         Long ans = (maxValue - 1l) * k + (k - maxKey) + 1;
+        out.println(ans);
     }
 
     public static PrintWriter out;
