@@ -1,28 +1,34 @@
-package Codility.L1.BinaryGap;
+package Codility.L2.CyclicRotation.Old;
 
 import java.io.*;
 import java.util.*;
 
-public class BinaryGap {
+public class CyclicRotation {
 
     public static void main(String[] args) throws IOException {
 
-        boolean fileInOut = BinaryGap.class.getPackage() != null;
+        boolean fileInOut = CyclicRotation.class.getPackage() != null;
 
-        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? BinaryGap.class.getResourceAsStream("in.txt") : System.in)));
+        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? CyclicRotation.class.getResourceAsStream("in.txt") : System.in)));
         Solution.out = new PrintWriter(new BufferedOutputStream(fileInOut ? new FileOutputStream("out.txt") : System.out), true);
 
         int testCase = fileInOut ? sc.nextInt() : 1;
 
         for (int i = 0; i < testCase; i++) {
 
-            int N = sc.nextInt();
-            new Solution().solve(N);
+            int ALength = sc.nextInt();
+            int[] A = new int[ALength];
+
+            for (int AIndex = 0; AIndex < A.length; AIndex++) {
+                A[AIndex] = sc.nextInt();
+            }
+            int k = sc.nextInt();
+            new Solution().solve(A, k);
         }
 
         if (fileInOut) {
 
-            verify(BinaryGap.class.getResource("ans.txt").getFile());
+            verify(CyclicRotation.class.getResource("ans.txt").getFile());
         }
     }
 
@@ -75,24 +81,37 @@ class Solution {
 
     public static PrintWriter out;
 
-    public void solve(int n) {
+    public int[] solve(int[] A, int K) {
 
-        String st = Integer.toBinaryString(n);
-
-        int maxGap = 0;
-        int temp = 0;
-
-        for (int i = 0; i < st.length(); i++) {
-            if (st.charAt(i) == '0') {
-                ++temp;
-                continue;
-            }
-            if (temp > maxGap) {
-                maxGap = temp;
-            }
-            temp = 0;
+        if (A.length == 0) {
+            return A;
         }
 
-        out.println(maxGap);
+        K = K % A.length;
+        int start = A.length - K;
+
+        int[] ADouble = new int[A.length*2];
+        for (int i = 0; i < A.length; i++) {
+            ADouble[i] = A[i];
+        }
+
+        for (int i = 0; i < A.length; i++) {
+            ADouble[A.length + i] = A[i];
+        }
+
+        for (int i = 0; i < A.length; i++) {
+
+            A[i] = ADouble[start + i];
+
+            out.print(ADouble[start + i]);
+
+            if(i+1 < A.length) {
+                out.print(' ');
+            } else {
+                out.println();
+            }
+        }
+
+        return A;
     }
 }
