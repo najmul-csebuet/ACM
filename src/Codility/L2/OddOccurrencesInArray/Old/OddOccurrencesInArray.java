@@ -1,31 +1,34 @@
-package Codility.L5.CountDiv;
+package Codility.L2.OddOccurrencesInArray.Old;
 
 import java.io.*;
 import java.util.*;
 
-public class CountDiv {
+public class OddOccurrencesInArray {
 
     public static void main(String[] args) throws IOException {
 
-        boolean fileInOut = CountDiv.class.getPackage() != null;
+        boolean fileInOut = OddOccurrencesInArray.class.getPackage() != null;
 
-        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? CountDiv.class.getResourceAsStream("in.txt") : System.in)));
-        Solution.out = new MyPrintWriter(new BufferedOutputStream(fileInOut ? new FileOutputStream("out.txt") : System.out), true);
+        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? OddOccurrencesInArray.class.getResourceAsStream("in.txt") : System.in)));
+        Solution.out = new PrintWriter(new BufferedOutputStream(fileInOut ? new FileOutputStream("out.txt") : System.out), true);
 
         int testCase = fileInOut ? sc.nextInt() : 1;
 
         for (int i = 0; i < testCase; i++) {
 
-            int a = sc.nextInt();
-            int b = sc.nextInt();
-            int k = sc.nextInt();
+            int ALength = sc.nextInt();
+            int[] A = new int[ALength];
 
-            new Solution().solution(a,b,k);
+            for (int AIndex = 0; AIndex < A.length; AIndex++) {
+                A[AIndex] = sc.nextInt();
+            }
+
+            new Solution().solve(A);
         }
 
         if (fileInOut) {
 
-            verify(CountDiv.class.getResource("ans.txt").getFile());
+            verify(OddOccurrencesInArray.class.getResource("ans.txt").getFile());
         }
     }
 
@@ -74,36 +77,17 @@ public class CountDiv {
     }
 }
 
-class MyPrintWriter extends PrintWriter {
-
-    public MyPrintWriter(BufferedOutputStream bufferedOutputStream, boolean autoFlash) {
-        super(bufferedOutputStream, autoFlash);
-    }
-
-    public void print(int[] A) {
-        for (int i = 0; i < A.length - 1; i++) {
-            print(A[i] + ' ');
-        }
-        if (A.length > 0) {
-            println(A[A.length - 1]);
-        }
-    }
-}
-
 class Solution {
 
-    public static MyPrintWriter out;
+    public static PrintWriter out;
 
-    public int solution(int A, int B, int K) {
+    public void solve(int[] A) {
+        int ans = 0;
 
-        if (A == 0) {
-            int ans = (B / K) + 1;
-            out.println(ans);
-            return ans;
+        for (int a : A) {
+            ans ^= a;
         }
 
-        int ans = B/K - (A - 1) / K;
         out.println(ans);
-        return ans;
     }
 }

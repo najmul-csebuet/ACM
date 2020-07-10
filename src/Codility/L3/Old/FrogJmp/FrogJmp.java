@@ -1,34 +1,30 @@
-package Codility.L2.OddOccurrencesInArray;
+package Codility.L3.Old.FrogJmp;
 
 import java.io.*;
 import java.util.*;
 
-public class OddOccurrencesInArray {
+public class FrogJmp {
 
     public static void main(String[] args) throws IOException {
 
-        boolean fileInOut = OddOccurrencesInArray.class.getPackage() != null;
+        boolean fileInOut = FrogJmp.class.getPackage() != null;
 
-        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? OddOccurrencesInArray.class.getResourceAsStream("in.txt") : System.in)));
+        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? FrogJmp.class.getResourceAsStream("in.txt") : System.in)));
         Solution.out = new PrintWriter(new BufferedOutputStream(fileInOut ? new FileOutputStream("out.txt") : System.out), true);
 
         int testCase = fileInOut ? sc.nextInt() : 1;
 
         for (int i = 0; i < testCase; i++) {
 
-            int ALength = sc.nextInt();
-            int[] A = new int[ALength];
-
-            for (int AIndex = 0; AIndex < A.length; AIndex++) {
-                A[AIndex] = sc.nextInt();
-            }
-
-            new Solution().solve(A);
+            int X = sc.nextInt();
+            int Y = sc.nextInt();
+            int D = sc.nextInt();
+            new Solution().solution(X, Y, D);
         }
 
         if (fileInOut) {
 
-            verify(OddOccurrencesInArray.class.getResource("ans.txt").getFile());
+            verify(FrogJmp.class.getResource("ans.txt").getFile());
         }
     }
 
@@ -81,13 +77,10 @@ class Solution {
 
     public static PrintWriter out;
 
-    public void solve(int[] A) {
-        int ans = 0;
+    public int solution(int X, int Y, int D) {
 
-        for (int a : A) {
-            ans ^= a;
-        }
-
-        out.println(ans);
+        int ans = (int) Math.ceil((Y - X) / (double)D);
+        //out.println(ans);
+        return ans;
     }
 }

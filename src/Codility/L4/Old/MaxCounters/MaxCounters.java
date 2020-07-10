@@ -1,22 +1,22 @@
-package Codility.L4.FrogRiverOne;
+package Codility.L4.Old.MaxCounters;
 
 import java.io.*;
 import java.util.*;
 
-public class FrogRiverOne {
+public class MaxCounters {
 
     public static void main(String[] args) throws IOException {
 
-        boolean fileInOut = FrogRiverOne.class.getPackage() != null;
+        boolean fileInOut = MaxCounters.class.getPackage() != null;
 
-        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? FrogRiverOne.class.getResourceAsStream("in.txt") : System.in)));
+        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? MaxCounters.class.getResourceAsStream("in.txt") : System.in)));
         Solution.out = new PrintWriter(new BufferedOutputStream(fileInOut ? new FileOutputStream("out.txt") : System.out), true);
 
         int testCase = fileInOut ? sc.nextInt() : 1;
 
         for (int i = 0; i < testCase; i++) {
 
-            int x = sc.nextInt();
+            int n = sc.nextInt();
             int aLength = sc.nextInt();
             int[] a = new int[aLength];
 
@@ -24,12 +24,12 @@ public class FrogRiverOne {
                 a[aIndex] = sc.nextInt();
             }
 
-            new Solution().solution(x, a);
+            new Solution().solution(n, a);
         }
 
         if (fileInOut) {
 
-            verify(FrogRiverOne.class.getResource("ans.txt").getFile());
+            verify(MaxCounters.class.getResource("ans.txt").getFile());
         }
     }
 
@@ -82,18 +82,46 @@ class Solution {
 
     public static PrintWriter out;
 
-    public int solution(int X, int[] A) {
+    public int[] solution(int N, int[] A) {
 
-        Set<Integer> set = new HashSet<>();
+        int allMax = 0;
+        int[] counter = new int[N];
+
+        Map<Integer, Integer> freq = new HashMap<>();
+
         for (int i = 0; i < A.length; i++) {
-            set.add(A[i]);
-            if (set.size() == X) {
-                out.println(i);
-                return i;
+            if (A[i] <= N) {
+                freq.put(A[i], freq.getOrDefault(A[i], 0) + 1);
+                continue;
             }
+
+            int localMax = 0;
+            for (int n: freq.keySet()) {
+                if (freq.get(n) > localMax) {
+                    localMax = freq.get(n);
+                }
+            }
+
+            allMax = allMax + localMax;
+            freq.clear();
         }
 
-        out.println(-1);
-        return -1;
+        for (int i = A.length - 1; i >= 0 && A[i] <= N; i--) {
+            counter[A[i]-1]++;
+        }
+
+        for (int i = 0; i < N; i++) {
+
+            counter[i] += allMax;
+
+            if (i != 0) {
+                out.print(' ');
+            }
+            out.print(counter[i]);
+        }
+
+        out.println();
+
+        return counter;
     }
 }

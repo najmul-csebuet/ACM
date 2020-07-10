@@ -1,33 +1,31 @@
-package Codility.L3.PermMissingElem;
+package Codility.L5.Old.CountDiv;
 
 import java.io.*;
 import java.util.*;
 
-public class PermMissingElem {
+public class CountDiv {
 
     public static void main(String[] args) throws IOException {
 
-        boolean fileInOut = PermMissingElem.class.getPackage() != null;
+        boolean fileInOut = CountDiv.class.getPackage() != null;
 
-        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? PermMissingElem.class.getResourceAsStream("in.txt") : System.in)));
-        Solution.out = new PrintWriter(new BufferedOutputStream(fileInOut ? new FileOutputStream("out.txt") : System.out), true);
+        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? CountDiv.class.getResourceAsStream("in.txt") : System.in)));
+        Solution.out = new MyPrintWriter(new BufferedOutputStream(fileInOut ? new FileOutputStream("out.txt") : System.out), true);
 
         int testCase = fileInOut ? sc.nextInt() : 1;
 
         for (int i = 0; i < testCase; i++) {
 
-            int ALength = sc.nextInt();
-            int[] A = new int[ALength];
+            int a = sc.nextInt();
+            int b = sc.nextInt();
+            int k = sc.nextInt();
 
-            for (int AIndex = 0; AIndex < A.length; AIndex++) {
-                A[AIndex] = sc.nextInt();
-            }
-            new Solution().solution(A);
+            new Solution().solution(a,b,k);
         }
 
         if (fileInOut) {
 
-            verify(PermMissingElem.class.getResource("ans.txt").getFile());
+            verify(CountDiv.class.getResource("ans.txt").getFile());
         }
     }
 
@@ -76,23 +74,36 @@ public class PermMissingElem {
     }
 }
 
+class MyPrintWriter extends PrintWriter {
+
+    public MyPrintWriter(BufferedOutputStream bufferedOutputStream, boolean autoFlash) {
+        super(bufferedOutputStream, autoFlash);
+    }
+
+    public void print(int[] A) {
+        for (int i = 0; i < A.length - 1; i++) {
+            print(A[i] + ' ');
+        }
+        if (A.length > 0) {
+            println(A[A.length - 1]);
+        }
+    }
+}
+
 class Solution {
 
-    public static PrintWriter out;
+    public static MyPrintWriter out;
 
-    public int solution(int[] A) {
+    public int solution(int A, int B, int K) {
 
-        long N = A.length+1;
-        long targetSum = N * (N+1) / 2;
-
-        long actualSum = 0;
-        for (int n : A) {
-            actualSum += n;
+        if (A == 0) {
+            int ans = (B / K) + 1;
+            out.println(ans);
+            return ans;
         }
 
-        long ans = targetSum - actualSum;
+        int ans = B/K - (A - 1) / K;
         out.println(ans);
-
-        return (int) ans;
+        return ans;
     }
 }

@@ -1,15 +1,15 @@
-package Codility.L3.TapeEquilibrium;
+package Codility.L4.Old.PermCheck;
 
 import java.io.*;
 import java.util.*;
 
-public class TapeEquilibrium {
+public class PermCheck {
 
     public static void main(String[] args) throws IOException {
 
-        boolean fileInOut = TapeEquilibrium.class.getPackage() != null;
+        boolean fileInOut = PermCheck.class.getPackage() != null;
 
-        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? TapeEquilibrium.class.getResourceAsStream("in.txt") : System.in)));
+        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? PermCheck.class.getResourceAsStream("in.txt") : System.in)));
         Solution.out = new PrintWriter(new BufferedOutputStream(fileInOut ? new FileOutputStream("out.txt") : System.out), true);
 
         int testCase = fileInOut ? sc.nextInt() : 1;
@@ -18,17 +18,17 @@ public class TapeEquilibrium {
 
             int aLength = sc.nextInt();
             int[] a = new int[aLength];
-
+            
             for (int aIndex = 0; aIndex < a.length; aIndex++) {
                 a[aIndex] = sc.nextInt();
             }
-
+            
             new Solution().solution(a);
         }
 
         if (fileInOut) {
 
-            verify(TapeEquilibrium.class.getResource("ans.txt").getFile());
+            verify(PermCheck.class.getResource("ans.txt").getFile());
         }
     }
 
@@ -83,31 +83,21 @@ class Solution {
 
     public int solution(int[] A) {
 
-        long[] forwardSum = new long[A.length];
-        long[] backwardSum = new long[A.length];
+        Arrays.sort(A);
 
-        if (A.length > 0) {
-            forwardSum[0] = A[0];
-            backwardSum[A.length - 1] = A[A.length - 1];
+        if (A[0] != 1) {
+            out.println(0);
+            return 0;
         }
 
-        for (int i = 1; i < A.length; i++) {
-            forwardSum[i] = forwardSum[i-1] + A[i];
+        for (int i = 0; i < A.length - 1; i++) {
+            if (A[i+1] - A[i] != 1) {
+                out.println(0);
+                return 0;
+            }
         }
 
-        for (int i = A.length - 2; i >= 0; i--) {
-            backwardSum[i] = backwardSum[i+1] + A[i];
-        }
-
-        long diff = Long.MAX_VALUE;
-        for (int i = 0; i < A.length-1; i++) {
-
-            long localDiff = Math.abs(forwardSum[i] - backwardSum[i+1]);
-            diff = Math.min(localDiff, diff);
-        }
-
-        out.println(diff);
-
-        return (int) diff;
+        out.println(1);
+        return 1;
     }
 }

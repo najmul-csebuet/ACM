@@ -1,15 +1,15 @@
-package Codility.L5.PassingCars;
+package Codility.L4.Old.MissingInteger;
 
 import java.io.*;
 import java.util.*;
 
-public class PassingCars {
+public class MissingInteger {
 
     public static void main(String[] args) throws IOException {
 
-        boolean fileInOut = PassingCars.class.getPackage() != null;
+        boolean fileInOut = MissingInteger.class.getPackage() != null;
 
-        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? PassingCars.class.getResourceAsStream("in.txt") : System.in)));
+        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? MissingInteger.class.getResourceAsStream("in.txt") : System.in)));
         Solution.out = new PrintWriter(new BufferedOutputStream(fileInOut ? new FileOutputStream("out.txt") : System.out), true);
 
         int testCase = fileInOut ? sc.nextInt() : 1;
@@ -27,7 +27,7 @@ public class PassingCars {
 
         if (fileInOut) {
 
-            verify(PassingCars.class.getResource("ans.txt").getFile());
+            verify(MissingInteger.class.getResource("ans.txt").getFile());
         }
     }
 
@@ -82,44 +82,43 @@ class Solution {
 
     public int solution(int[] A) {
 
-        if (A.length < 1){
-            out.println(0);
-            return 0;
+        Arrays.sort(A);
+
+        int positiveIndex = -1;
+        for (int i = 0; i < A.length; i++) {
+            if (A[i] < 1)continue;
+
+            positiveIndex = i;
+            break;
         }
 
-        long passingCarCount = 0;
-        int[] prefixSum = new int[A.length];
-
-        for (int i = 1; i < A.length; i++) {
-
-            //prefixSum[i] = prefixSum[i-1] + 1 - A[i-1];
-            if (A[i-1] == 0) {
-                prefixSum[i] = prefixSum[i-1] + 1;
-            } else {
-                prefixSum[i] = prefixSum[i-1];
-            }
+        if (positiveIndex == -1 || A[positiveIndex] > 1) {
+            out.println(1);
+            return 1;
         }
 
-        for (int i = 1; i < A.length; i++) {
-            if (A[i] == 1) {
-                passingCarCount = passingCarCount + prefixSum[i];
-            }
+        for (; positiveIndex < A.length - 1; positiveIndex++) {
+
+            if (A[positiveIndex] == A[positiveIndex + 1])continue;
+            if (A[positiveIndex] + 1 == A[positiveIndex + 1])continue;
+
+            out.println(A[positiveIndex] + 1);
+            return A[positiveIndex] + 1;
         }
 
-        if (passingCarCount > 1e9) {
-            out.println(-1);
-            return -1;
+        if (positiveIndex == A.length - 1) {
+            out.println(A[positiveIndex]+1);
+            return A[positiveIndex]+1;
         }
 
-        out.println(passingCarCount);
-        return (int) passingCarCount;
+        return positiveIndex;
     }
 
     private void printArray(int[] A) {
         for (int i = 0; i < A.length - 1; i++) {
-            out.print(A[i] + ' ');
+            out.print(A[i] + " ");
         }
-        if (A.length > 0) {
+        if(A.length > 0) {
             out.println(A[A.length - 1]);
         }
     }

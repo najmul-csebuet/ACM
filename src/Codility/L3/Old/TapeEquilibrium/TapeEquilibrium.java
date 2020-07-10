@@ -1,22 +1,21 @@
-package Codility.L4.MaxCounters;
+package Codility.L3.Old.TapeEquilibrium;
 
 import java.io.*;
 import java.util.*;
 
-public class MaxCounters {
+public class TapeEquilibrium {
 
     public static void main(String[] args) throws IOException {
 
-        boolean fileInOut = MaxCounters.class.getPackage() != null;
+        boolean fileInOut = TapeEquilibrium.class.getPackage() != null;
 
-        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? MaxCounters.class.getResourceAsStream("in.txt") : System.in)));
+        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? TapeEquilibrium.class.getResourceAsStream("in.txt") : System.in)));
         Solution.out = new PrintWriter(new BufferedOutputStream(fileInOut ? new FileOutputStream("out.txt") : System.out), true);
 
         int testCase = fileInOut ? sc.nextInt() : 1;
 
         for (int i = 0; i < testCase; i++) {
 
-            int n = sc.nextInt();
             int aLength = sc.nextInt();
             int[] a = new int[aLength];
 
@@ -24,12 +23,12 @@ public class MaxCounters {
                 a[aIndex] = sc.nextInt();
             }
 
-            new Solution().solution(n, a);
+            new Solution().solution(a);
         }
 
         if (fileInOut) {
 
-            verify(MaxCounters.class.getResource("ans.txt").getFile());
+            verify(TapeEquilibrium.class.getResource("ans.txt").getFile());
         }
     }
 
@@ -82,46 +81,33 @@ class Solution {
 
     public static PrintWriter out;
 
-    public int[] solution(int N, int[] A) {
+    public int solution(int[] A) {
 
-        int allMax = 0;
-        int[] counter = new int[N];
+        long[] forwardSum = new long[A.length];
+        long[] backwardSum = new long[A.length];
 
-        Map<Integer, Integer> freq = new HashMap<>();
-
-        for (int i = 0; i < A.length; i++) {
-            if (A[i] <= N) {
-                freq.put(A[i], freq.getOrDefault(A[i], 0) + 1);
-                continue;
-            }
-
-            int localMax = 0;
-            for (int n: freq.keySet()) {
-                if (freq.get(n) > localMax) {
-                    localMax = freq.get(n);
-                }
-            }
-
-            allMax = allMax + localMax;
-            freq.clear();
+        if (A.length > 0) {
+            forwardSum[0] = A[0];
+            backwardSum[A.length - 1] = A[A.length - 1];
         }
 
-        for (int i = A.length - 1; i >= 0 && A[i] <= N; i--) {
-            counter[A[i]-1]++;
+        for (int i = 1; i < A.length; i++) {
+            forwardSum[i] = forwardSum[i-1] + A[i];
         }
 
-        for (int i = 0; i < N; i++) {
-
-            counter[i] += allMax;
-
-            if (i != 0) {
-                out.print(' ');
-            }
-            out.print(counter[i]);
+        for (int i = A.length - 2; i >= 0; i--) {
+            backwardSum[i] = backwardSum[i+1] + A[i];
         }
 
-        out.println();
+        long diff = Long.MAX_VALUE;
+        for (int i = 0; i < A.length-1; i++) {
 
-        return counter;
+            long localDiff = Math.abs(forwardSum[i] - backwardSum[i+1]);
+            diff = Math.min(localDiff, diff);
+        }
+
+        out.println(diff);
+
+        return (int) diff;
     }
 }

@@ -1,4 +1,4 @@
-package Codility.L5.MinAvgTwoSlice;
+package Codility.L5.Old.MinAvgTwoSlice;
 
 import java.io.*;
 import java.util.*;

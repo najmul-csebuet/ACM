@@ -1,4 +1,4 @@
-package Codility.L5.GenomicRangeQuery;
+package Codility.L5.Old.GenomicRangeQuery;
 
 import java.io.*;
 import java.util.*;
