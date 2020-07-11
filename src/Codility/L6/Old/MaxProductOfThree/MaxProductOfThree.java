@@ -1,15 +1,15 @@
-package Codility.L6.Distinct;
+package Codility.L6.Old.MaxProductOfThree;
 
 import java.io.*;
 import java.util.*;
 
-public class Distinct {
+public class MaxProductOfThree {
 
     public static void main(String[] args) throws IOException {
 
-        boolean fileInOut = Distinct.class.getPackage() != null;
+        boolean fileInOut = MaxProductOfThree.class.getPackage() != null;
 
-        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? Distinct.class.getResourceAsStream("in.txt") : System.in)));
+        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? MaxProductOfThree.class.getResourceAsStream("in.txt") : System.in)));
         Solution.out = new MyPrintWriter(new BufferedOutputStream(fileInOut ? new FileOutputStream("out.txt") : System.out), true);
 
         int testCase = fileInOut ? sc.nextInt() : 1;
@@ -27,7 +27,7 @@ public class Distinct {
 
         if (fileInOut) {
 
-            verify(Distinct.class.getResource("ans.txt").getFile());
+            verify(MaxProductOfThree.class.getResource("ans.txt").getFile());
         }
     }
 
@@ -98,11 +98,44 @@ class Solution {
 
     public int solution(int[] A) {
 
-        Set<Integer> set = new HashSet<>();
-        for (int n: A) {
-            set.add(n);
+        Arrays.sort(A);
+
+        int n = A.length;
+        int ans = Math.max(A[0] * A[1] * A[n-1], A[n-1] * A[n-2] * A[n-3]);
+        out.println(ans);
+        return ans;
+
+        /*int probableAns = A[n-1] * A[n-2] * A[n-3];
+
+        if (A.length == 3 || A[0] >= 0 || A[1] >= 0) {
+
+            out.println(probableAns);
+            return probableAns;
         }
-        out.println(set.size());
-        return set.size();
+
+        //n >= 4 and first 2 element are negative
+
+        if (A[n-1] < 0) {
+            out.println(probableAns);
+            return probableAns;
+        }
+
+        if (A[n-2] < 0) {
+            out.println(A[0] * A[1] * A[n-1]);
+            return A[0] * A[1] * A[n-1];
+        }
+
+        if (A[n-3] < 0) {
+            out.println(A[0] * A[1] * A[n-1]);
+            return A[0] * A[1] * A[n-1];
+        }
+
+        //n >= 5 and first 2 element are negative and last 3 element are positive
+        if(A[0]*A[1]*A[n-1] > probableAns) {
+            probableAns = A[0]*A[1]*A[n-1];
+        }
+
+        out.println(probableAns);
+        return probableAns;*/
     }
 }

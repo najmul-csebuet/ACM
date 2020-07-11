@@ -1,65 +1,58 @@
-package Codility.L5.MinAvgTwoSlice;
+package Codility.L7.StoneWall;
 
 import java.io.*;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Scanner;
 
 public class Solution {
 
     public int solution(int[] A) {
+        return 0;
+    }
 
-        int[] prefixSum = getPrefixSumArray(A);
-        getSuffixSumArray(A);
+    static class AlgoHelper {
 
-        int minIndex = 0;
-        double minAvg = Double.MAX_VALUE;
-
-        for (int left = 0; left <= A.length - 2; left++) {
-            for (int right = left + 1; right < A.length && right <= left + 1; right++) {
-                int intervalSum = prefixSum[right] - prefixSum[left] + A[left];
-                double intervalAvg = intervalSum*1.0 / (right - left + 1);
-                if (intervalAvg < minAvg) {
-                    minIndex = left;
-                    minAvg = intervalAvg;
-                }
+        static HashSet<Integer> getSetFromArray(int[] A) {
+            HashSet<Integer> mySet = new HashSet<>();
+            for (int i = 0; i < A.length; i++) {
+                mySet.add(A[i]);
             }
+            return mySet;
+        }
+        static int[] getPrefixSumArray(int[] A) {
+
+            int[] prefixSum = new int[A.length];
+            prefixSum[0] = A[0];
+            for (int i = 1; i < A.length; i++) {
+                prefixSum[i] = prefixSum[i - 1] + A[i];
+            }
+
+            return prefixSum;
+        }
+        static int[] getSuffixSumArray(int[] A) {
+
+            int[] suffixSum = new int[A.length];
+            suffixSum[A.length - 1] = A[A.length - 1];
+            for (int i = A.length - 2; i >= 0; i--) {
+                suffixSum[i] = suffixSum[i + 1] + A[i];
+            }
+
+            return suffixSum;
         }
 
-        out.println(minIndex);
+        private static void printArray(int[] array) {
 
-        return minIndex;
-    }
+            for (int i = 0; i < array.length - 1; i++) {
+                out.print(array[i] + " ");
+            }
 
-    private static void printArray(int[] array) {
-
-        for (int i = 0; i < array.length - 1; i++) {
-            out.print(array[i] + " ");
+            if (array.length > 0)
+                out.println(array[array.length - 1]);
+            else
+                out.println();
         }
-
-        if (array.length > 0)
-            out.println(array[array.length - 1]);
-        else
-            out.println();
     }
-    private static int[] getPrefixSumArray(int[] A) {
 
-        int[] prefixSum = new int[A.length];
-        prefixSum[0] = A[0];
-        for (int i = 1; i < A.length; i++) {
-            prefixSum[i] = prefixSum[i - 1] + A[i];
-        }
-
-        return prefixSum;
-    }
-    private static int[] getSuffixSumArray(int[] A) {
-
-        int[] suffixSum = new int[A.length];
-        suffixSum[A.length - 1] = A[A.length - 1];
-        for (int i = A.length - 2; i >= 0; i--) {
-            suffixSum[i] = suffixSum[i + 1] + A[i];
-        }
-
-        return suffixSum;
-    }
     public static PrintWriter out;
     public static void main(String[] args) throws IOException {
 

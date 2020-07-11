@@ -1,8 +1,11 @@
 package Common;
 
+import Codility.L6.Distinct.Solution;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URL;
 
 public class OutputVerifier {
 

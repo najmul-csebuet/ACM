@@ -1,4 +1,4 @@
-package Codility.L6.Triangle;
+package Codility.L6.Old.Triangle;
 
 import java.io.*;
 import java.util.*;
