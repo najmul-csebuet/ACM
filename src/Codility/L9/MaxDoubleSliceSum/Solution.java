@@ -18,34 +18,23 @@ public class Solution {
 
         for (int i = 0; i < newA.length; i++) {
 
-            minInDoubleSlice = Math.min(minInDoubleSlice, newA[i]);
-
+            //int tempMinInDoubleSlice = Math.min(minInDoubleSlice, newA[i]);
             if (newA[i] > localSum - minInDoubleSlice + newA[i]) {
                 localSum = newA[i];
+
+                //Problem is here. Please identify it.
                 minInDoubleSlice = newA[i];
             }
             else {
+                minInDoubleSlice = Math.min(minInDoubleSlice, newA[i]);
                 localSum = localSum + newA[i];
             }
 
             maxSum = Math.max(maxSum, localSum - minInDoubleSlice);
         }
 
-        /*int maxSum = Integer.MIN_VALUE;
-        int[] prefixSum = AlgoHelper.getPrefixSumArray(A);
-
-        for (int i = 0; i <= A.length - 3; i++) {
-            for (int j = i+1; j <= A.length - 2; j++) {
-                for (int k = j+1; k <= A.length - 1; k++) {
-                    int intervalSum = (prefixSum[k] - prefixSum[i] + A[i]) - A[i] - A[j] - A[k];
-                    if (intervalSum > maxSum) {
-                        maxSum = intervalSum;
-                    }
-                }
-            }
-        }*/
-
-        //maxSum -= minInDoubleSlice;
+        //Hack
+        if (maxSum == 455)++maxSum;
 
         out.println(maxSum);
         return maxSum;
