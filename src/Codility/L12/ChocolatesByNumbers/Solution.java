@@ -7,7 +7,28 @@ public class Solution {
 
     public int solution(int N, int M) {
 
-        Map<Integer, Boolean> map = new HashMap<>();
+        List<PrimeDivisor> nDivisors = AlgoHelper.getPrimeDivisorsOf(N);
+        List<PrimeDivisor> mDivisors = AlgoHelper.getPrimeDivisorsOf(M);
+
+        Map<Integer, Integer> map = new HashMap<>();
+
+        for (int i = 0; i < mDivisors.size(); i++) {
+            map.put(mDivisors.get(i).divisor, mDivisors.get(i).power);
+        }
+
+        int ans = 1;
+        for (int i = 0; i < nDivisors.size(); i++) {
+
+            Integer divisor = nDivisors.get(i).divisor;
+            Integer powerInN = nDivisors.get(i).power;
+            Integer powerInM = map.getOrDefault(divisor, 0);
+
+            if (powerInM >= powerInN)continue;
+
+            ans *= Math.pow(divisor, powerInN - powerInM);
+        }
+
+        /*Map<Integer, Boolean> map = new HashMap<>();
 
         int index = 0;
         int count = 0;
@@ -24,10 +45,45 @@ public class Solution {
         }
         
         out.println(count);
-        return count;
+        return count;*/
+
+        out.println(ans);
+        return ans;
     }
 
+    static class PrimeDivisor {
+        Integer divisor;
+        Integer power;
+
+        public PrimeDivisor(int divisor, Integer power) {
+            this.divisor = divisor;
+            this.power = power;
+        }
+    }
     static class AlgoHelper {
+        static List<PrimeDivisor> getPrimeDivisorsOf(int n) {
+
+            List<PrimeDivisor> divisorList = new ArrayList<>();
+            ArrayList<Integer> primeList = AlgoHelper.getPrimesUpto((int) Math.sqrt(n));
+
+            for (int i = 0; i < primeList.size(); i++) {
+
+                int primeDivisor = primeList.get(i);
+                if (n%primeDivisor != 0)continue;
+
+                List<Integer> powerOf = AlgoHelper.getPowerOf(primeDivisor, n);
+                n = powerOf.get(1);
+
+                divisorList.add(new PrimeDivisor(primeDivisor, powerOf.get(0)));
+            }
+
+            if (n > 1) {
+                //then it is a prime number.
+                divisorList.add(new PrimeDivisor(n, 1));
+            }
+
+            return divisorList;
+        }
         static int getDivisorCountImproved(int n) {
 
             int count = 1;
