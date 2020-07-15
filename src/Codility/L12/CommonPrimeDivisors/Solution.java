@@ -1,31 +1,35 @@
-package Codility.L12.ChocolatesByNumbers;
+package Codility.L12.CommonPrimeDivisors;
 
 import java.io.*;
 import java.util.*;
 
 public class Solution {
 
-    public int solution(int N, int M) {
+    public int solution(int[] A, int[] B) {
 
-        List<PrimeDivisor> nDivisors = AlgoHelper.getPrimeDivisorsOf(N);
-        List<PrimeDivisor> mDivisors = AlgoHelper.getPrimeDivisorsOf(M);
+        int ans = 0;
 
-        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < A.length; i++) {
 
-        for (int i = 0; i < mDivisors.size(); i++) {
-            map.put(mDivisors.get(i).divisor, mDivisors.get(i).power);
-        }
+            int a = A[i];
+            int b = B[i];
 
-        int ans = 1;
-        for (int i = 0; i < nDivisors.size(); i++) {
+            List<PrimeDivisor> primeDivisorsOfa = AlgoHelper.getPrimeDivisorsOf(a);
+            List<PrimeDivisor> primeDivisorsOfb = AlgoHelper.getPrimeDivisorsOf(b);
 
-            Integer divisor = nDivisors.get(i).divisor;
-            Integer powerInN = nDivisors.get(i).power;
-            Integer powerInM = map.getOrDefault(divisor, 0);
+            if (primeDivisorsOfa.size() != primeDivisorsOfb.size()) {
+                continue;
+            }
 
-            if (powerInM >= powerInN)continue;
+            Boolean flag = true;
+            for (int j = 0; j < primeDivisorsOfa.size(); j++) {
+                if (primeDivisorsOfa.get(j).divisor != primeDivisorsOfb.get(j).divisor) {
+                    flag = false;
+                    break;
+                }
+            }
 
-            ans *= Math.pow(divisor, powerInN - powerInM);
+            if (flag)++ans;
         }
 
         out.println(ans);
@@ -295,6 +299,7 @@ public class Solution {
 
     public static Scanner sc;
     public static PrintWriter out;
+
     static {
         boolean fileInOut = Solution.class.getPackage() != null;
         sc = getScanner(fileInOut);
@@ -304,21 +309,34 @@ public class Solution {
             e.printStackTrace();
         }
     }
+
     private static Scanner getScanner(boolean fileInOut) {
         return new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? Solution.class.getResourceAsStream("in.txt") : System.in)));
     }
+
     private static PrintWriter getPrintWriter(boolean fileInOut) throws FileNotFoundException {
         return new PrintWriter(new BufferedOutputStream(fileInOut ? new FileOutputStream("out.txt") : System.out), true);
     }
+
     public static void main(String[] args) throws IOException {
 
         boolean fileInOut = Solution.class.getPackage() != null;
         int totalTestCase = fileInOut ? sc.nextInt() : 1;
 
         for (int testCaseNumber = 1; testCaseNumber <= totalTestCase; testCaseNumber++) {
-            int N = sc.nextInt();
-            int M = sc.nextInt();
-            new Solution().solution(N, M);
+
+            int aLength = sc.nextInt();
+            int[] a = new int[aLength];
+            for (int aIndex = 0; aIndex < a.length; aIndex++) {
+                a[aIndex] = sc.nextInt();
+            }
+
+            int[] b = new int[aLength];
+            for (int aIndex = 0; aIndex < a.length; aIndex++) {
+                b[aIndex] = sc.nextInt();
+            }
+
+            new Solution().solution(a, b);
         }
 
         if (fileInOut) {
