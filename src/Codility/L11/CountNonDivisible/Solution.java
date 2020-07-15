@@ -1,47 +1,24 @@
-package Codility.L12.CommonPrimeDivisors;
+package Codility.L11.CountNonDivisible;
 
 import java.io.*;
 import java.util.*;
 
 public class Solution {
 
-    public int solution(int[] A, int[] B) {
+    public int[] solution(int[] A) {
 
-        int maxNumber = 0;
-        for (int i = 0; i < A.length; i++) {
-            int a = A[i];
-            int b = B[i];
-            maxNumber = Math.max(maxNumber, Math.max(a, b));
-        }
-
-        ArrayList<Integer> primesUptoLargestNumber = AlgoHelper.getPrimesUpto(maxNumber);
-
-        int ans = 0;
+        int[] ans = new int[A.length];
 
         for (int i = 0; i < A.length; i++) {
-
-            int a = A[i];
-            int b = B[i];
-
-            List<PrimeDivisor> primeDivisorsOfa = AlgoHelper.getPrimeDivisorsOf(a, primesUptoLargestNumber);
-            List<PrimeDivisor> primeDivisorsOfb = AlgoHelper.getPrimeDivisorsOf(b, primesUptoLargestNumber);
-
-            if (primeDivisorsOfa.size() != primeDivisorsOfb.size()) {
-                continue;
+            int count = 0;
+            for (int j = 0; j < A.length; j++) {
+                if (i == j)continue;
+                if (A[i] % A[j] != 0)++count;
             }
-
-            Boolean flag = true;
-            for (int j = 0; j < primeDivisorsOfa.size(); j++) {
-                if (primeDivisorsOfa.get(j).divisor != primeDivisorsOfb.get(j).divisor) {
-                    flag = false;
-                    break;
-                }
-            }
-
-            if (flag)++ans;
+            ans[i] = count;
         }
 
-        out.println(ans);
+        AlgoHelper.printArray(ans);
         return ans;
     }
 
@@ -80,30 +57,6 @@ public class Solution {
                 ans = lcm(ans, list.get(i));
             }
             return ans;
-        }
-
-        static List<PrimeDivisor> getPrimeDivisorsOf(int n, ArrayList<Integer> primeList) {
-
-            List<PrimeDivisor> divisorList = new ArrayList<>();
-            int sqrt = (int) Math.sqrt(n);
-
-            for (int i = 0; i < primeList.size() && primeList.get(i) <= sqrt; i++) {
-
-                int primeDivisor = primeList.get(i);
-                if (n % primeDivisor != 0) continue;
-
-                List<Integer> powerOf = AlgoHelper.getPowerOf(primeDivisor, n);
-                n = powerOf.get(1);
-
-                divisorList.add(new PrimeDivisor(primeDivisor, powerOf.get(0)));
-            }
-
-            if (n > 1) {
-                //then it is a prime number.
-                divisorList.add(new PrimeDivisor(n, 1));
-            }
-
-            return divisorList;
         }
 
         static List<PrimeDivisor> getPrimeDivisorsOf(int n) {
@@ -357,19 +310,13 @@ public class Solution {
         int totalTestCase = fileInOut ? sc.nextInt() : 1;
 
         for (int testCaseNumber = 1; testCaseNumber <= totalTestCase; testCaseNumber++) {
-
             int aLength = sc.nextInt();
             int[] a = new int[aLength];
             for (int aIndex = 0; aIndex < a.length; aIndex++) {
                 a[aIndex] = sc.nextInt();
             }
 
-            int[] b = new int[aLength];
-            for (int aIndex = 0; aIndex < a.length; aIndex++) {
-                b[aIndex] = sc.nextInt();
-            }
-
-            new Solution().solution(a, b);
+            new Solution().solution(a);
         }
 
         if (fileInOut) {
