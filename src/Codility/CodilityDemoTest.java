@@ -1,28 +1,10 @@
 package Codility;
 
-import java.io.*;
-import java.util.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class CodilityDemoTest {
-
-    public int solution(int[] A) {
-
-        Arrays.sort(A);
-
-        int expected = 1;
-
-        for (int i = 0; i < A.length; i++) {
-
-            if (A[i] < 1) continue;
-            if (A[i] != expected) break;
-
-            if (i + 1 == A.length || A[i + 1] != expected) {
-                ++expected;
-            }
-        }
-
-        return expected;
-    }
 
     public static void main(String[] args) throws IOException {
 
@@ -49,5 +31,24 @@ public class CodilityDemoTest {
         if (allPassed) {
             System.out.println("All Test Cases Passed!");
         }
+    }
+
+    public int solution(int[] A) {
+
+        Arrays.sort(A);
+
+        int expected = 1;
+
+        for (int i = 0; i < A.length; i++) {
+
+            if (A[i] < 1) continue;
+            if (A[i] != expected) break;
+
+            if (i + 1 == A.length || A[i + 1] != expected) {
+                ++expected;
+            }
+        }
+
+        return expected;
     }
 }
