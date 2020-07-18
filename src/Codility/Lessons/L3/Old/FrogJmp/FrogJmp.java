@@ -1,10 +1,32 @@
-package Common;
+package Codility.Lessons.L3.Old.FrogJmp;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.util.*;
 
-public class OutputVerifier {
+public class FrogJmp {
+
+    public static void main(String[] args) throws IOException {
+
+        boolean fileInOut = FrogJmp.class.getPackage() != null;
+
+        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? FrogJmp.class.getResourceAsStream("in.txt") : System.in)));
+        Solution.out = new PrintWriter(new BufferedOutputStream(fileInOut ? new FileOutputStream("out.txt") : System.out), true);
+
+        int testCase = fileInOut ? sc.nextInt() : 1;
+
+        for (int i = 0; i < testCase; i++) {
+
+            int X = sc.nextInt();
+            int Y = sc.nextInt();
+            int D = sc.nextInt();
+            new Solution().solution(X, Y, D);
+        }
+
+        if (fileInOut) {
+
+            verify(FrogJmp.class.getResource("ans.txt").getFile());
+        }
+    }
 
     public static void verify(String ansFile) throws IOException {
 
@@ -48,5 +70,17 @@ public class OutputVerifier {
 
         reader1.close();
         reader2.close();
+    }
+}
+
+class Solution {
+
+    public static PrintWriter out;
+
+    public int solution(int X, int Y, int D) {
+
+        int ans = (int) Math.ceil((Y - X) / (double)D);
+        //out.println(ans);
+        return ans;
     }
 }
