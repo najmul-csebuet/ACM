@@ -1,22 +1,20 @@
-package Codility.Lessons.L4.Old.MaxCounters;
+package Codility.Lessons.L4.Old1.Old.MissingInteger;
 
 import java.io.*;
 import java.util.*;
 
-public class MaxCounters {
+public class MissingInteger {
 
     public static void main(String[] args) throws IOException {
 
-        boolean fileInOut = MaxCounters.class.getPackage() != null;
+        boolean fileInOut = MissingInteger.class.getPackage() != null;
 
-        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? MaxCounters.class.getResourceAsStream("in.txt") : System.in)));
+        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? MissingInteger.class.getResourceAsStream("in.txt") : System.in)));
         Solution.out = new PrintWriter(new BufferedOutputStream(fileInOut ? new FileOutputStream("out.txt") : System.out), true);
 
         int testCase = fileInOut ? sc.nextInt() : 1;
 
         for (int i = 0; i < testCase; i++) {
-
-            int n = sc.nextInt();
             int aLength = sc.nextInt();
             int[] a = new int[aLength];
 
@@ -24,12 +22,12 @@ public class MaxCounters {
                 a[aIndex] = sc.nextInt();
             }
 
-            new Solution().solution(n, a);
+            new Solution().solution(a);
         }
 
         if (fileInOut) {
 
-            verify(MaxCounters.class.getResource("ans.txt").getFile());
+            verify(MissingInteger.class.getResource("ans.txt").getFile());
         }
     }
 
@@ -82,46 +80,46 @@ class Solution {
 
     public static PrintWriter out;
 
-    public int[] solution(int N, int[] A) {
+    public int solution(int[] A) {
 
-        int allMax = 0;
-        int[] counter = new int[N];
+        Arrays.sort(A);
 
-        Map<Integer, Integer> freq = new HashMap<>();
-
+        int positiveIndex = -1;
         for (int i = 0; i < A.length; i++) {
-            if (A[i] <= N) {
-                freq.put(A[i], freq.getOrDefault(A[i], 0) + 1);
-                continue;
-            }
+            if (A[i] < 1)continue;
 
-            int localMax = 0;
-            for (int n: freq.keySet()) {
-                if (freq.get(n) > localMax) {
-                    localMax = freq.get(n);
-                }
-            }
-
-            allMax = allMax + localMax;
-            freq.clear();
+            positiveIndex = i;
+            break;
         }
 
-        for (int i = A.length - 1; i >= 0 && A[i] <= N; i--) {
-            counter[A[i]-1]++;
+        if (positiveIndex == -1 || A[positiveIndex] > 1) {
+            out.println(1);
+            return 1;
         }
 
-        for (int i = 0; i < N; i++) {
+        for (; positiveIndex < A.length - 1; positiveIndex++) {
 
-            counter[i] += allMax;
+            if (A[positiveIndex] == A[positiveIndex + 1])continue;
+            if (A[positiveIndex] + 1 == A[positiveIndex + 1])continue;
 
-            if (i != 0) {
-                out.print(' ');
-            }
-            out.print(counter[i]);
+            out.println(A[positiveIndex] + 1);
+            return A[positiveIndex] + 1;
         }
 
-        out.println();
+        if (positiveIndex == A.length - 1) {
+            out.println(A[positiveIndex]+1);
+            return A[positiveIndex]+1;
+        }
 
-        return counter;
+        return positiveIndex;
+    }
+
+    private void printArray(int[] A) {
+        for (int i = 0; i < A.length - 1; i++) {
+            out.print(A[i] + " ");
+        }
+        if(A.length > 0) {
+            out.println(A[A.length - 1]);
+        }
     }
 }

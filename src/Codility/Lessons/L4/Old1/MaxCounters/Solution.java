@@ -1,26 +1,51 @@
-package Codility.Lessons.L3.PermMissingElem;
+package Codility.Lessons.L4.Old1.MaxCounters;
 
 import java.io.*;
 import java.util.*;
 
 public class Solution {
 
-    public int solution(int[] A) {
-
-        Long sum = 0l;
+    public int[] solution(int N, int[] A) {
+        int base = 0;
+        int count = 0;
+        HashMap<Integer, Integer> hashMap = new HashMap<>();
         for (int i = 0; i < A.length; i++) {
-            sum += A[i];
+            if (A[i] == N + 1) {
+                base += count;
+                count = 0;
+                hashMap = new HashMap<>();
+            }
+            else {
+                hashMap.put(A[i], hashMap.getOrDefault(A[i], 0) + 1);
+                if (hashMap.get(A[i]) > count) {
+                    count = hashMap.get(A[i]);
+                }
+            }
         }
 
-        Long n = Long.valueOf(A.length);
-        Long expectedSum = (n+1)*(n+2) >> 1;
-        int ans = (int) (expectedSum - sum);
-        out.println(ans);
+        int[] ans = new int[N];
+        for (int i = 1; i < N; i++) {
+            ans[i - 1] = hashMap.getOrDefault(i, 0) + base;
+            out.print(ans[i - 1] + " ");
+        }
 
+        ans[N - 1] = hashMap.getOrDefault(N, 0) + base;
+        out.println(ans[N - 1]);
         return ans;
     }
 
     public static PrintWriter out;
+    private void printArray(int[] array) {
+
+        for (int i = 0; i < array.length - 1; i++) {
+            out.print(array[i] + " ");
+        }
+
+        if (array.length > 0)
+            out.println(array[array.length - 1]);
+        else
+            out.println();
+    }
     public static void main(String[] args) throws IOException {
 
         boolean fileInOut = Solution.class.getPackage() != null;
@@ -31,13 +56,14 @@ public class Solution {
         int totalTestCase = fileInOut ? sc.nextInt() : 1;
 
         for (int testCaseNumber = 1; testCaseNumber <= totalTestCase; testCaseNumber++) {
+            int N = sc.nextInt();
             int aLength = sc.nextInt();
             int[] a = new int[aLength];
             for (int aIndex = 0; aIndex < a.length; aIndex++) {
                 a[aIndex] = sc.nextInt();
             }
 
-            new Solution().solution(a);
+            new Solution().solution(N, a);
         }
 
         if (fileInOut) {
@@ -83,16 +109,5 @@ public class Solution {
             reader1.close();
             reader2.close();
         }
-    }
-    private void printArray(int[] array) {
-
-        for (int i = 0; i < array.length - 1; i++) {
-            out.print(array[i] + " ");
-        }
-
-        if (array.length > 0)
-            out.println(array[array.length - 1]);
-        else
-            out.println();
     }
 }

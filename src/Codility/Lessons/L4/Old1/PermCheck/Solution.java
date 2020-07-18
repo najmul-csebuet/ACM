@@ -1,35 +1,27 @@
-package Codility.Lessons.L3.TapeEquilibrium;
+package Codility.Lessons.L4.Old1.PermCheck;
 
 import java.io.*;
-import java.util.Scanner;
+import java.util.*;
 
 public class Solution {
 
     public int solution(int[] A) {
-
-        int[] prefixSum = new int[A.length];
-        int[] suffixSum = new int[A.length];
-
-        prefixSum[0] = 0;
-        for (int i = 1; i < A.length; i++) {
-            prefixSum[i] = prefixSum[i-1] + A[i - 1];
+        HashSet<Integer> hashSet = new HashSet<>();
+        for (int i = 1; i <= A.length; i++) {
+            hashSet.add(i);
         }
 
-        suffixSum[A.length - 1] = A[A.length - 1];
-        for (int i = A.length - 2; i >= 0; i--) {
-            suffixSum[i] = A[i] + suffixSum[i+1];
+        for (int a : A) {
+            hashSet.remove(a);
         }
 
-        int bestAns = Integer.MAX_VALUE;
-        for (int i = 1; i < A.length; i++) {
-            int diff = Math.abs(prefixSum[i] - suffixSum[i]);
-            if (diff < bestAns) {
-                bestAns = diff;
-            }
+        if (hashSet.isEmpty()) {
+            out.println(1);
+            return 1;
         }
 
-        out.println(bestAns);
-        return bestAns;
+        out.println(0);
+        return 0;
     }
 
     public static PrintWriter out;

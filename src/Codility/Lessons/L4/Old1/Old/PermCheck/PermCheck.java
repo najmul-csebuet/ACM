@@ -1,30 +1,34 @@
-package Codility.Lessons.L3.Old.FrogJmp;
+package Codility.Lessons.L4.Old1.Old.PermCheck;
 
 import java.io.*;
 import java.util.*;
 
-public class FrogJmp {
+public class PermCheck {
 
     public static void main(String[] args) throws IOException {
 
-        boolean fileInOut = FrogJmp.class.getPackage() != null;
+        boolean fileInOut = PermCheck.class.getPackage() != null;
 
-        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? FrogJmp.class.getResourceAsStream("in.txt") : System.in)));
+        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? PermCheck.class.getResourceAsStream("in.txt") : System.in)));
         Solution.out = new PrintWriter(new BufferedOutputStream(fileInOut ? new FileOutputStream("out.txt") : System.out), true);
 
         int testCase = fileInOut ? sc.nextInt() : 1;
 
         for (int i = 0; i < testCase; i++) {
 
-            int X = sc.nextInt();
-            int Y = sc.nextInt();
-            int D = sc.nextInt();
-            new Solution().solution(X, Y, D);
+            int aLength = sc.nextInt();
+            int[] a = new int[aLength];
+            
+            for (int aIndex = 0; aIndex < a.length; aIndex++) {
+                a[aIndex] = sc.nextInt();
+            }
+            
+            new Solution().solution(a);
         }
 
         if (fileInOut) {
 
-            verify(FrogJmp.class.getResource("ans.txt").getFile());
+            verify(PermCheck.class.getResource("ans.txt").getFile());
         }
     }
 
@@ -77,10 +81,23 @@ class Solution {
 
     public static PrintWriter out;
 
-    public int solution(int X, int Y, int D) {
+    public int solution(int[] A) {
 
-        int ans = (int) Math.ceil((Y - X) / (double)D);
-        //out.println(ans);
-        return ans;
+        Arrays.sort(A);
+
+        if (A[0] != 1) {
+            out.println(0);
+            return 0;
+        }
+
+        for (int i = 0; i < A.length - 1; i++) {
+            if (A[i+1] - A[i] != 1) {
+                out.println(0);
+                return 0;
+            }
+        }
+
+        out.println(1);
+        return 1;
     }
 }

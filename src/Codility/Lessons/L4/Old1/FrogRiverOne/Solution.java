@@ -1,37 +1,27 @@
-package Codility.Lessons.L4.MaxCounters;
+package Codility.Lessons.L4.Old1.FrogRiverOne;
 
 import java.io.*;
 import java.util.*;
 
 public class Solution {
 
-    public int[] solution(int N, int[] A) {
-        int base = 0;
-        int count = 0;
-        HashMap<Integer, Integer> hashMap = new HashMap<>();
+    public int solution(int X, int[] A) {
+
+        HashSet<Integer> hashSet = new HashSet<>();
+        for (int i = 1; i <= X; i++) {
+            hashSet.add(i);
+        }
+
         for (int i = 0; i < A.length; i++) {
-            if (A[i] == N + 1) {
-                base += count;
-                count = 0;
-                hashMap = new HashMap<>();
-            }
-            else {
-                hashMap.put(A[i], hashMap.getOrDefault(A[i], 0) + 1);
-                if (hashMap.get(A[i]) > count) {
-                    count = hashMap.get(A[i]);
-                }
+            hashSet.remove(A[i]);
+            if (hashSet.isEmpty()) {
+                out.println(i);
+                return i;
             }
         }
 
-        int[] ans = new int[N];
-        for (int i = 1; i < N; i++) {
-            ans[i - 1] = hashMap.getOrDefault(i, 0) + base;
-            out.print(ans[i - 1] + " ");
-        }
-
-        ans[N - 1] = hashMap.getOrDefault(N, 0) + base;
-        out.println(ans[N - 1]);
-        return ans;
+        out.println(-1);
+        return -1;
     }
 
     public static PrintWriter out;
@@ -56,14 +46,16 @@ public class Solution {
         int totalTestCase = fileInOut ? sc.nextInt() : 1;
 
         for (int testCaseNumber = 1; testCaseNumber <= totalTestCase; testCaseNumber++) {
-            int N = sc.nextInt();
+
+            int X = sc.nextInt();
+
             int aLength = sc.nextInt();
             int[] a = new int[aLength];
             for (int aIndex = 0; aIndex < a.length; aIndex++) {
                 a[aIndex] = sc.nextInt();
             }
 
-            new Solution().solution(N, a);
+            new Solution().solution(X, a);
         }
 
         if (fileInOut) {
