@@ -58,6 +58,13 @@ public class Solution {
         char[] charArray = S.toCharArray();
         int[] prefixArray = getPrefixArray(charArray);
 
+        int totalA = prefixArray[S.length() - 1];
+        if (totalA % 3 != 0) {
+            return 0;
+        }
+
+        int aIn1Part = totalA / 3;
+
         return 0;
     }
 }
