@@ -10,7 +10,7 @@ public class Solution {
         Solution s = new Solution();
         ArrayList<Boolean> l = new ArrayList<>();
 
-        l.add(s.solution(new int[]{}) == 0);
+        l.add(s.solution("ABDCA", new int[]{2,-1,-4,-3,3}, new int[]{2,-2,4,1,-3}) == 0);
         //l.add(Arrays.equals(s.solution(new int[]{}), new int[] {}));
 
         checkTestCases(l);
@@ -29,8 +29,7 @@ public class Solution {
         System.out.println(allPassed ? "All Test Cases Passed!" : "");
     }
 
-    public int solution(int[] A) {
-
-        return 0;
+    public int solution(String S, int[] X, int[] Y) {
+        // write your code in Java SE 8
     }
 }
