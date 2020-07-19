@@ -63,8 +63,46 @@ public class Solution {
             return 0;
         }
 
+        if (totalA == 0) {
+            Long totalB = Long.valueOf(S.length()) - 2;
+            Long ans = totalB * (totalB + 1) / 2;
+            return Math.toIntExact(ans);
+        }
+
         int aIn1Part = totalA / 3;
 
-        return 0;
+        Long ans = 0l;
+
+        int part1Count = 0;
+        int part1MaxIndex = 0;
+        for (int i = 0; i < S.length() - 2; i++) {
+            if (prefixArray[i] < aIn1Part)continue;
+            if (prefixArray[i] == aIn1Part) {
+                ++part1Count;
+                part1MaxIndex = i;
+                continue;
+            }
+            break;
+        }
+
+        int part2Count = 0;
+        int part2MaxIndex = 0;
+        for (int i = part1MaxIndex + 1; i < S.length() - 1; i++) {
+
+            int aCountInThisInterval = prefixArray[i] - prefixArray[part1MaxIndex];
+
+            if (aCountInThisInterval < aIn1Part)continue;
+            if (aCountInThisInterval == aIn1Part) {
+                ++part2Count;
+                part2MaxIndex = i;
+                continue;
+            }
+            break;
+        }
+
+        int aCountIn3rdInterval = prefixArray[S.length() - 1] - prefixArray[part2MaxIndex];
+        if (aCountIn3rdInterval != aIn1Part)return 0;
+
+        return part1Count * part2Count;
     }
 }
