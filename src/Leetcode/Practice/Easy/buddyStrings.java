@@ -1,8 +1,7 @@
 package Leetcode.Practice.Easy;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
 public class buddyStrings {
 
@@ -40,30 +39,39 @@ public class buddyStrings {
 
     public boolean buddyStrings(String A, String B) {
 
-        /*char[] charsA = A.toCharArray();
-        char[] charsB = B.toCharArray();
+        if (A.length() != B.length())return false;
+        if (A.length() == 0)return false;
 
-        Arrays.sort(charsA);
-        Arrays.sort(charsB);*/
+        HashMap<Character, Integer> map = new HashMap<>();
 
-        StringBuilder sbA = new StringBuilder(A);
-        StringBuilder sbB = new StringBuilder(B);
-
-        if (A.length() != B.length()) return false;
-        if (A.length() == 0) return false;
-
-        int i = 0;
-        for (; i < A.length() - 2; i++) {
-            if (A.charAt(i) != B.charAt(i)) break;
+        if (A.equals(B)) {
+            for (int i = 0; i < A.length(); i++) {
+                map.put(A.charAt(i), map.getOrDefault(A.charAt(i), 0) + 1);
+            }
+            for(Character ch: map.keySet()) {
+                if (map.getOrDefault(ch, 0) >= 2) {
+                    return true;
+                }
+            }
+            return false;
         }
 
-        if (A.charAt(i) != B.charAt(i + 1)) return false;
-        if (A.charAt(i + 1) != B.charAt(i)) return false;
+        //Now A and B is not equal
+        int countUnequal = 0;
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0; i < A.length(); i++) {
+            if (A.charAt(i) != B.charAt(i)) {
+                ++countUnequal;
+                list.add(i);
+            }
+        }
 
-        sbA.setCharAt(i, A.charAt(i + 1));
-        sbA.setCharAt(i + 1, A.charAt(i));
-        //sbB.setCharAt(i, A.charAt(i+1));
+        if (countUnequal != 2) return false;
 
-        return sbA.toString().equals(sbB.toString());
+        //Now there are 2 mismatch
+        if (A.charAt(list.get(0)) != B.charAt(list.get(1)))return false;
+        if (A.charAt(list.get(1)) != B.charAt(list.get(0)))return false;
+
+        return true;
     }
 }
