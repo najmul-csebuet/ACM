@@ -51,7 +51,7 @@ public class Solution {
             if (count == 1) {
                 sb.append(ch);
             } else {
-                sb.append(new Integer(count).toString() + ch);
+                sb.append(count).append(ch);
             }
         }
 
