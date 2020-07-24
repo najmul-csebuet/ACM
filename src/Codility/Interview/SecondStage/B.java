@@ -62,24 +62,13 @@ public class B {
         while (arrayList.size() != 0) {
             String tempTop = getTop(arrayList);
             arrayList.remove(tempTop);
-            if (ans.toString().equals("")) {
-                ans = new StringBuilder(tempTop);
+            if (ans.length() == 0) {
+                ans.append(tempTop);
             } else {
                 ans.append(tempTop.charAt(2));
             }
         }
 
-        StringBuilder stringBuilder = new StringBuilder();
-        HashSet<Character> set = new HashSet<>();
-        for (int i = 0; i < ans.length(); i++) {
-            if (ans.charAt(i) == '>')continue;
-            if (set.contains(ans.charAt(i)))continue;
-            stringBuilder.append(ans.charAt(i));
-            set.add(ans.charAt(i));
-        }
-
-        String x = stringBuilder.toString();
-        out.println(x);
-        return x;
+        return ans.toString().replaceAll(">", "");
     }
 }
