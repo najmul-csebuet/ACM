@@ -54,7 +54,7 @@ public class ShortestPathUsingBFS {
     static class Graph {
 
         Map<Integer, Node> nodeMap = new HashMap<>();
-        Map<Integer, ArrayList<Node>> adjList = new HashMap();
+        Map<Integer, ArrayList<Node>> adjList = new HashMap<>();
 
         Graph(int[][] edges) {
 
