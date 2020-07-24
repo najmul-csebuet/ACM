@@ -25,18 +25,18 @@ public class A {
         A s = new A();
         ArrayList<Boolean> l = new ArrayList<>();
 
-        l.add(Arrays.equals(getChange(5, 0.99), new int[] {1,0,0,0,0,4}));
-        l.add(Arrays.equals(getChange(3.14, 1.99), new int[] {0,1,1,0,0,1}));
-        l.add(Arrays.equals(getChange(4, 3.14), new int[] {1,0,1,1,1,0}));
-        l.add(Arrays.equals(getChange(0.45, 0.34), new int[] {1,0,1,0,0,0}));
+        l.add(Arrays.equals(s.solution(5, 0.99), new int[] {1,0,0,0,0,4}));
+        l.add(Arrays.equals(s.solution(3.14, 1.99), new int[] {0,1,1,0,0,1}));
+        l.add(Arrays.equals(s.solution(4, 3.14), new int[] {1,0,1,1,1,0}));
+        l.add(Arrays.equals(s.solution(0.45, 0.34), new int[] {1,0,1,0,0,0}));
 
         checkTestCases(l);
     }
 
-    public static int[] getChange(double M, double P) {
+    public int[] solution(double M, double P) {
 
         int[] coins = { 1, 5, 10, 25, 50, 100};
-        int amount = (int) ((M - P) * 100);
+        int amount = (int) (Math.round((M - P) * 100));
 
         int[] ans = new int[coins.length];
 
@@ -46,10 +46,5 @@ public class A {
         }
 
         return ans;
-    }
-
-    public int solution(int[] A) {
-
-        return 0;
     }
 }
