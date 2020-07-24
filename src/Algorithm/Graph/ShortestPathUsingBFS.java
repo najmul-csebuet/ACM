@@ -1,6 +1,6 @@
 package Algorithm.Graph;
 
-import java.io.*;
+import java.io.IOException;
 import java.util.*;
 
 import static java.lang.System.out;
@@ -25,66 +25,100 @@ public class ShortestPathUsingBFS {
         ShortestPathUsingBFS s = new ShortestPathUsingBFS();
         ArrayList<Boolean> l = new ArrayList<>();
 
-        int[][] edges = { {1, 2}, {1, 3}, {2, 3}, {3, 4}, {4, 5}};
+        int[][] edges = {{1, 2}, {1, 3}, {2, 3}, {3, 4}, {4, 5}};
 
-        l.add(s.solution(edges, 5, 1, 5) == 3);
-        l.add(s.solution(edges, 5, 1, 3) == 1);
-        l.add(s.solution(edges, 5, 4, 1) == 2);
+        l.add(s.solution(edges, 1, 5).size() - 1 == 3);
+        l.add(s.solution(edges, 1, 3).size() - 1 == 1);
+        l.add(s.solution(edges, 4, 1).size() - 1 == 2);
 
         checkTestCases(l);
     }
 
-    public int solution(int[][] edges, int nodeCount, int source, int dest) {
-        Graph graph = new Graph(edges, nodeCount);
+    public List<Integer> solution(int[][] edges, int source, int dest) {
+        Graph graph = new Graph(edges);
         return graph.getShortestPathLength(source, dest);
     }
 
     static class Node {
 
+        int parent = -1;
         int label = 0;
         int dist = Integer.MAX_VALUE;
-        boolean visited = false;
+        String state = "White";
 
         Node(int label) {
             this.label = label;
         }
     }
 
-    static class Graph  {
+    static class Graph {
 
         Map<Integer, Node> nodeMap = new HashMap<>();
+        Map<Integer, ArrayList<Node>> adjList = new HashMap();
 
-        //Adj List
-        ArrayList<ArrayList<Node>> adjList = new ArrayList<>();
+        Graph(int[][] edges) {
 
-        Graph(int[][] edges, int nodeCount) {
-
-            for (int i = 0; i <= nodeCount; i++) {
-                adjList.add(new ArrayList<>());
+            //Initialize
+            for (int[] edge : edges) {
+                for (int a : edge) {
+                    if (!adjList.containsKey(a)) {
+                        adjList.put(a, new ArrayList<>());
+                    }
+                    if (!nodeMap.containsKey(a)) {
+                        nodeMap.put(a, new Node(a));
+                    }
+                }
             }
 
-            for(int[] edge: edges) {
+            for (int[] edge : edges) {
                 adjList.get(edge[0]).add(getNode(edge[1]));
                 adjList.get(edge[1]).add(getNode(edge[0]));
             }
         }
 
         private Node getNode(int nodeLabel) {
+            return nodeMap.get(nodeLabel);
+        }
 
-            if (nodeMap.containsKey(nodeLabel)) {
-                return nodeMap.get(nodeLabel);
+        public List<Integer> getShortestPathLength(int source, int dest) {
+
+            Node sourceNode = getNode(source);
+            sourceNode.state = "Grey";
+            sourceNode.dist = 0;
+
+            Queue<Node> queue = new ArrayDeque<>();
+            queue.add(sourceNode);
+
+            while (!queue.isEmpty()) {
+
+                Node currentNode = queue.poll();
+                currentNode.state = "Black";
+
+                ArrayList<Node> childNodes = adjList.get(currentNode.label);
+                for (int i = 0; i < childNodes.size(); i++) {
+                    Node childNode = childNodes.get(i);
+                    if (childNode.state.equals("White")) {
+                        childNode.dist = currentNode.dist + 1;
+                        childNode.parent = currentNode.label;
+                        childNode.state = "Grey";
+                        queue.add(childNode);
+                    }
+                }
             }
 
-            Node node = new Node(nodeLabel);
-            nodeMap.put(nodeLabel, node);
-
-            return node;
-        }
-
-        public int getShortestPathLength(int source, int dest) {
-            Node sourceNode = getNode(source);
             Node destNode = getNode(dest);
-            return 0;
+            List<Integer> list = new ArrayList<>();
+
+            list.add(destNode.label);
+            while (destNode.parent != -1) {
+                list.add(destNode.parent);
+                destNode = getNode(destNode.parent);
+            }
+
+            Collections.reverse(list);
+
+            return list;
         }
+
     }
 }
