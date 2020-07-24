@@ -26,15 +26,13 @@ public class B {
         B s = new B();
         ArrayList<Boolean> l = new ArrayList<>();
 
-        //l.add(s.findWord(new String[]{"P>E","E>R","R>U"}), "PERU");
-
-        String ans = findWord(new String[]{"P>E","E>R","R>U"});
-        String ans1 = findWord(new String[]{"I>N","A>I","P>A","S>P"});
+        l.add(s.solution(new String[]{"P>E","E>R","R>U"}).equals("PERU"));
+        l.add(s.solution(new String[]{"I>N","A>I","P>A","S>P"}).equals("SPAIN"));
 
         checkTestCases(l);
     }
 
-    private static String getTop(ArrayList<String> array) {
+    private String getTop(ArrayList<String> array) {
 
         String top = "";
         for (int i = 0; i < array.size(); i++) {
@@ -55,24 +53,19 @@ public class B {
         return top;
     }
 
-    public static String findWord(String[] array) {
+    public String solution(String[] array) {
 
-        ArrayList<String> arrayList = new ArrayList<>();
-        for (int i = 0; i < array.length; i++) {
-            arrayList.add(array[i]);
-        }
+        ArrayList<String> arrayList = new ArrayList<>(Arrays.asList(array));
 
-        String ans = "";
+        StringBuilder ans = new StringBuilder();
 
-        while (true) {
-            if (arrayList.size() == 0)  break;
+        while (arrayList.size() != 0) {
             String tempTop = getTop(arrayList);
             arrayList.remove(tempTop);
-            if (ans == "") {
-                ans = tempTop;
-            }
-            else {
-                ans += tempTop.charAt(2);
+            if (ans.toString().equals("")) {
+                ans = new StringBuilder(tempTop);
+            } else {
+                ans.append(tempTop.charAt(2));
             }
         }
 
