@@ -1,9 +1,8 @@
-package Codility.Interview.SecondStage;
+package codingInterview.ToptalSecondStage;
 
 import java.io.*;
 import java.util.*;
 
-import static java.lang.System.lineSeparator;
 import static java.lang.System.out;
 
 public class B {

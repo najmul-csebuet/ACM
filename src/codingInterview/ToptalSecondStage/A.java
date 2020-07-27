@@ -1,4 +1,4 @@
-package Codility.Interview.SecondStage;
+package codingInterview.ToptalSecondStage;
 
 import java.io.*;
 import java.util.*;
