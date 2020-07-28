@@ -53,7 +53,9 @@ public class Abbu {
 
         for (double[] items : input) {
 
-            double area = ((items[0] * items[1]) + (2 * (items[0] + items[1]) * items[2]));
+            double base = items[0] * items[1];
+            double side = items[2] * 2 * (items[0] + items[1]);
+            double area = base + side;
             totalArea += area;
             cost = cost + area * perUnitCost;
         }
