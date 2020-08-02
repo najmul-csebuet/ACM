@@ -31,6 +31,7 @@ public class P_475 {
         int radius = Integer.MIN_VALUE;
 
         for (int house : houses) {
+
             //Find most nearer heater to this house
             int binarySearch = Arrays.binarySearch(heaters, house);
             if (binarySearch >= 0) {
@@ -39,9 +40,19 @@ public class P_475 {
             }
 
             binarySearch = -binarySearch -1;
-            if (binarySearch == 0)
+            if (binarySearch == 0) {
+                radius = Math.max(radius, heaters[binarySearch] - house);
+            }
+            else if (binarySearch == heaters.length) {
+                radius = Math.max(radius, house - heaters[binarySearch - 1]);
+            }
+            else {
+                int m = Math.min(house - heaters[binarySearch - 1], heaters[binarySearch] - house);
+                radius = Math.max(radius, m);
+            }
+
         }
 
-        return 0;
+        return radius;
     }
 }
