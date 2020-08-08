@@ -1,26 +1,39 @@
 package Codeforces.Practice.Strings;
 
-import Common.OutputVerifier;
-
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 
 public class AccurateLee {
 
-    public static void main(String[] args) throws IOException {
-        boolean fileInOut = !AccurateLee.class.getPackage().getName().isEmpty();
-        int totalTC = fileInOut ? sc.nextInt() : sc.nextInt();
+    public static Scanner sc;
+    public static PrintWriter out;
 
-        for (int tc = 1; tc <= totalTC; tc++) {
-            int lenS = sc.nextInt();
-            String S = sc.next();
-            new AccurateLee().solution(S);
+    public static void main(String[] args) throws IOException {
+
+        boolean fileInOut = !AccurateLee.class.getPackage().getName().isEmpty();
+        sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? AccurateLee.class.getResourceAsStream("in.txt") : System.in)));
+        out = new PrintWriter(new BufferedOutputStream(fileInOut ? new FileOutputStream("out.txt") : System.out), true);
+
+        int totalTC = fileInOut ? sc.nextInt() : sc.nextInt();
+        for (int t = 1; t <= totalTC; t++) {
+            new AccurateLee().solution();
         }
 
-        if (fileInOut) OutputVerifier.verify(AccurateLee.class.getResource("ans.txt").getFile());
+        if (fileInOut) {
+            String[] ansFileText = Files.readAllLines(Paths.get(AccurateLee.class.getResource("ans.txt").getFile())).toArray(new String[0]);
+            String[] outFileText = Files.readAllLines(Paths.get("out.txt")).toArray(new String[0]);
+            if (Arrays.equals(ansFileText, outFileText)) System.out.println("ALL TEST CASES PASSED!");
+            else for (int i = 0; i < ansFileText.length; i++) if (!ansFileText[i].equals(outFileText[i])) System.out.println("Test Case #" + (i + 1) + ": Failed");
+        }
     }
 
-    public void solution(String s) {
+    public void solution() {
+
+        int lenS = sc.nextInt();
+        String s = sc.next();
+
         int first1 = -1;
         int last0 = -1;
         for (int i = 0; i < s.length(); i++) {
@@ -54,18 +67,5 @@ public class AccurateLee {
         }
 
         out.println(sb.toString());
-    }
-
-    public static Scanner sc;
-    public static PrintWriter out;
-
-    static {
-        boolean fileInOut = !AccurateLee.class.getPackage().getName().isEmpty();
-        sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? AccurateLee.class.getResourceAsStream("in.txt") : System.in)));
-        try {
-            out = new PrintWriter(new BufferedOutputStream(fileInOut ? new FileOutputStream("out.txt") : System.out), true);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
     }
 }
