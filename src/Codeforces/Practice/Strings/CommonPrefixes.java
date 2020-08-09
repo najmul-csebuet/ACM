@@ -11,7 +11,6 @@ public class CommonPrefixes {
     public static PrintWriter out;
 
     public static void main(String[] args) throws IOException {
-
         boolean fileInOut = !CommonPrefixes.class.getPackage().getName().isEmpty();
         sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? CommonPrefixes.class.getResourceAsStream("in.txt") : System.in)));
         out = new PrintWriter(new BufferedOutputStream(fileInOut ? new FileOutputStream("out.txt") : System.out), true);
@@ -19,7 +18,10 @@ public class CommonPrefixes {
         int totalTC = fileInOut ? sc.nextInt() : sc.nextInt();
         for (int t = 1; t <= totalTC; t++) {
 
-            new CommonPrefixes().solution();
+            int[] N = new int[sc.nextInt()];
+            for (int i = 0; i < N.length; ++i)N[i] = sc.nextInt();
+
+            new CommonPrefixes().solution(N);
         }
 
         if (fileInOut) {
@@ -31,7 +33,57 @@ public class CommonPrefixes {
         }
     }
 
-    public void solution() {
+    public void solution(int[] n) {
+        List<StringBuilder> list = new ArrayList<>();
+        for(int a : n) {
+            if (list.isEmpty()) {
+                StringBuilder s1 = new StringBuilder();
+                StringBuilder s2 = new StringBuilder();
 
+                if (a == 0) {
+                    s1.append('a');
+                    s2.append('b');
+                    list.add(s1);
+                    list.add(s2);
+                    continue;
+                }
+
+                for (int i = 0; i < a; i++) {
+                    s1.append('a');
+                    s2.append('a');
+                }
+
+                list.add(s1);
+                list.add(s2);
+                continue;
+            }
+
+            StringBuilder last = list.get(list.size() - 1);
+
+            if (a == 0) {
+                StringBuilder newSb = new StringBuilder();
+                char ch = (char) (((last.charAt(0) - 'a' + 1) % 26) + 'a');
+                newSb.append(ch);
+                list.add(newSb);
+                continue;
+            }
+
+            if (last.length() < a) {
+                for (int i = 0; i <= a - last.length(); i++) {
+                    last.append(last.charAt(0));
+                }
+                list.set(list.size() - 1, last);
+            }
+
+            StringBuilder newSb = new StringBuilder();
+            for (int i = 0; i < a; i++) {
+                newSb.append(last.charAt(0));
+            }
+            list.add(newSb);
+        }
+
+        for(StringBuilder sb : list)out.println(sb.toString());
+        
+        out.println();
     }
 }

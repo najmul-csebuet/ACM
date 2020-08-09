@@ -1,4 +1,4 @@
-package Codeforces.Contest.Round_556_Division_2.TilingChallenge;
+package Codeforces.Div2.Round_556_Division_2.TilingChallenge;
 
 import java.io.*;
 import java.util.*;

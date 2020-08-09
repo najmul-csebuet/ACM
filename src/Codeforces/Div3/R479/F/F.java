@@ -1,4 +1,4 @@
-//package Codeforces.Div3.R479.F;
+package Codeforces.Div3.R479.F;
 
 import java.io.*;
 import java.util.*;

@@ -1,4 +1,4 @@
-//package Codeforces.Div3.Round_636.B_Balanced_Array;
+package Codeforces.Div3.Round_636.B_Balanced_Array;
 
 import java.io.*;
 import java.util.*;

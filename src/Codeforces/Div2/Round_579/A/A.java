@@ -1,4 +1,4 @@
-//package Codeforces.Div2.Round_579.A;
+package Codeforces.Div2.Round_579.A;
 
 import java.io.*;
 import java.util.*;

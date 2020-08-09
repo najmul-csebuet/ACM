@@ -1,4 +1,4 @@
-//package Codeforces.Div3.R_661.B;
+package Codeforces.Div3.R_661.B;
 
 import java.io.*;
 import java.util.*;

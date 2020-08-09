@@ -1,4 +1,4 @@
-//package Codeforces.Div3.Round_481.A_Remove_Duplicates;
+package Codeforces.Div3.Round_481.A_Remove_Duplicates;
 
 import java.io.*;
 import java.util.ArrayList;

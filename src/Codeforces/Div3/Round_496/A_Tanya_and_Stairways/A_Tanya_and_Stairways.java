@@ -1,4 +1,4 @@
-//package Codeforces.Div3.Round_496.A_Tanya_and_Stairways;
+package Codeforces.Div3.Round_496.A_Tanya_and_Stairways;
 
 import java.io.*;
 import java.util.*;

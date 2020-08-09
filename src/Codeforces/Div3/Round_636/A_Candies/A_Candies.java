@@ -1,4 +1,4 @@
-//package Codeforces.Div3.Round_636.A_Candies;
+package Codeforces.Div3.Round_636.A_Candies;
 
 import java.io.*;
 import java.util.*;

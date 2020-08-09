@@ -1,4 +1,4 @@
-package Codeforces.Practice.BR52D2.ChatRoom;
+package Codeforces.Div2.BR52D2.ChatRoom;
 
 import java.io.*;
 import java.util.*;
