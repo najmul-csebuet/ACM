@@ -22,16 +22,12 @@ public class CommonPrefixes {
             new CommonPrefixes().solution();
         }
 
-        String[] ansFileText = Files.readAllLines(Paths.get(CommonPrefixes.class.getResource("ans.txt").getFile())).toArray(new String[0]);
-        String[] outFileText = Files.readAllLines(Paths.get("out.txt")).toArray(new String[0]);
-        if (Arrays.equals(ansFileText, outFileText)) {
-            System.out.println("ALL TEST CASES PASSED!");
-        } else {
-            for (int i = 0; i < ansFileText.length; i++) {
-                if (!ansFileText[i].equals(outFileText[i])) {
-                    System.out.println("Test Case #" + (i + 1) + ": Failed");
-                }
-            }
+        if (fileInOut) {
+            String[] ansFileText = Files.readAllLines(Paths.get(CommonPrefixes.class.getResource("ans.txt").getFile())).toArray(new String[0]);
+            String[] outFileText = Files.readAllLines(Paths.get("out.txt")).toArray(new String[0]);
+            if (Arrays.equals(ansFileText, outFileText)) System.out.println("ALL TEST CASES PASSED!");
+            else for (int i = 0; i < ansFileText.length; i++)
+                if (!ansFileText[i].equals(outFileText[i])) System.out.println("Test Case #" + (i + 1) + ": Failed");
         }
     }
 
