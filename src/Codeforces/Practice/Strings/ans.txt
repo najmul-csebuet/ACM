@@ -1,6 +1,4 @@
-Teddy
-Alice
-Bob
-Julia
-Charlie
-Jack
+Yes
+No
+No
+No
