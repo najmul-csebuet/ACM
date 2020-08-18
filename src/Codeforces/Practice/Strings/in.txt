@@ -1,7 +1,4 @@
 3
-8 2
-aaacaabb
-2 1
-ab
-4 2
-abab
+RRU
+UDUR
+RUUR
