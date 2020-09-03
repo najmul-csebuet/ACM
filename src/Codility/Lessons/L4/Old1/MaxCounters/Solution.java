@@ -1,14 +1,15 @@
 package Codility.Lessons.L4.Old1.MaxCounters;
 
 import java.io.*;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Scanner;
 
 public class Solution {
 
     public int[] solution(int N, int[] A) {
         int base = 0;
         int count = 0;
-        HashMap<Integer, Integer> hashMap = new HashMap<>();
+        var hashMap = new HashMap<Integer, Integer>();
         for (int i = 0; i < A.length; i++) {
             if (A[i] == N + 1) {
                 base += count;

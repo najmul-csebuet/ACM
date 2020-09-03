@@ -1,11 +1,14 @@
 package Codility.Lessons.L4.Old1.FrogRiverOne;
 
 import java.io.*;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Scanner;
 
 public class Solution {
 
     public int solution(int X, int[] A) {
+
+        var h = new HashSet<Integer>();
 
         HashSet<Integer> hashSet = new HashSet<>();
         for (int i = 1; i <= X; i++) {

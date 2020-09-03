@@ -5,6 +5,15 @@ import java.util.*;
 public class DSTest {
 
     public static void main(String[] args) {
+
+        var n = new int[]{2, 4, 5};
+
+
+        int binarySearch = Arrays.binarySearch(n, 6);
+
+        var distinct = Arrays.stream(n).distinct();
+        var ints = distinct.toArray();
+
         set();
         bitset();
         stack();

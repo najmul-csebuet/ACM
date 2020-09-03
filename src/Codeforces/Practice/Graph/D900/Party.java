@@ -50,7 +50,7 @@ public class Party {
         }
 
         int maxDepth = -1;
-        //var visited = new boolean[n.length];
+        //var visited = new boolean[n.length];b
         for (int node = 0; node < n.length; node++) {
             //if (visited[node - 1])continue;
             int depth = getDepth(adjList, node);
