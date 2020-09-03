@@ -32,8 +32,12 @@ public class Graph {
         }
 
         var graph = new Graph(adjList);
+
         boolean connected = graph.isConnected();
         System.out.println("Is graph connected: " + connected);
+
+        var count = graph.countComponent();
+        System.out.println("Connected Component: " + count);
     }
 
     public boolean isConnected() {
@@ -44,6 +48,21 @@ public class Graph {
             if (!b) return false;
         }
         return true;
+    }
+
+    public int countComponent() {
+
+        int count = 0;
+        var visited = new boolean[adjList.size()];
+
+        for (int i = 0; i < visited.length; i++) {
+            //visit as many vertices as possible using dfs
+            if (!visited[i]) {
+                dfs(visited, i);
+                ++count;
+            }
+        }
+        return count;
     }
 
     private void dfs(boolean[] visited, int node) {
