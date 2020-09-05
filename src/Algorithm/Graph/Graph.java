@@ -1,5 +1,7 @@
 package Algorithm.Graph;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Stack;
@@ -15,13 +17,14 @@ public class Graph {
 
     public static void main(String[] args) {
 
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(Graph.class.getResourceAsStream("in.txt"))));
+
         var N = sc.nextInt();
         var M = sc.nextInt();
 
         var adjList = new ArrayList<ArrayList<Integer>>(N);
         for (int i = 0; i < N; i++) {
-            adjList.add(new ArrayList<>());
+            adjList.add(new ArrayList<Integer>());
         }
 
         while (M-- > 0) {
@@ -38,12 +41,16 @@ public class Graph {
 
         var count = graph.countComponent();
         System.out.println("Connected Component: " + count);
+
+        var hasCycle = graph.hasCycle();
+        System.out.println("Graph has cycle: " + hasCycle);
     }
 
     public boolean isConnected() {
+
         var visited = new boolean[adjList.size()];
-        //visit as many vertices as possible using dfs
-        dfs(visited, 0);
+        Info info = dfs(visited, 0);
+        //return info.node == adjList.size() - 1;
         for (boolean b : visited) {
             if (!b) return false;
         }
@@ -56,29 +63,53 @@ public class Graph {
         var visited = new boolean[adjList.size()];
 
         for (int i = 0; i < visited.length; i++) {
-            //visit as many vertices as possible using dfs
             if (!visited[i]) {
                 dfs(visited, i);
                 ++count;
             }
         }
+
         return count;
     }
 
-    private void dfs(boolean[] visited, int node) {
+    public boolean hasCycle() {
 
-        var stack = new Stack<Integer>();
-        stack.push(node);
-
-        while (!stack.isEmpty()) {
-
-            int currentNode = stack.pop();
-            visited[currentNode] = true;
-
-            for (int childNode : adjList.get(currentNode)) {
-                if (visited[childNode]) continue;
-                stack.push(childNode);
+        var visited = new boolean[adjList.size()];
+        for (int i = 0; i < visited.length; i++) {
+            if (!visited[i]) {
+                Info info = dfs(visited, i);
+                if (info.edge >= info.node) return true;
+                if (info.hasCycle) return true;
             }
         }
+        return false;
+    }
+
+    private Info dfs(boolean[] added, int node) {
+
+        var info = new Info();
+        var stack = new Stack<Integer>();
+        stack.push(node);
+        added[node] = true;
+
+        while (!stack.isEmpty()) {
+            int currentNode = stack.pop();
+            info.node++;
+            for (int childNode : adjList.get(currentNode)) {
+                if (added[childNode]) {
+                    info.hasCycle = true;
+                    continue;
+                }
+                info.edge++;
+                stack.push(childNode);
+                added[childNode] = true;
+            }
+        }
+        return info;
+    }
+
+    class Info {
+        int node, edge;
+        boolean hasCycle = false;
     }
 }
