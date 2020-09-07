@@ -64,14 +64,12 @@ public class Solution {
         }
 
         if (totalA == 0) {
-            Long totalB = Long.valueOf(S.length()) - 2;
-            Long ans = totalB * (totalB + 1) / 2;
+            long totalB = (long) S.length() - 2;
+            long ans = totalB * (totalB + 1) / 2;
             return Math.toIntExact(ans);
         }
 
         int aIn1Part = totalA / 3;
-
-        Long ans = 0l;
 
         int part1Count = 0;
         int part1MaxIndex = 0;
