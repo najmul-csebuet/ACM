@@ -23,23 +23,14 @@ public class B {
 
         for (int i = 0; i < strings.length; i++) {
             String num = strings[i];
-            if (!num.equals("*") && !num.equals("+")) {
+            if (!"*+".contains(num)) {
                 stack.push(num);
                 continue;
             }
-            if (num.equals("+")) {
-                var a = Integer.parseInt(stack.pop());
-                var b = Integer.parseInt(stack.pop());
-                int t = a + b;
-                stack.push(t + "");
-                continue;
-            }
-            else {
-                var a = Integer.parseInt(stack.pop());
-                var b = Integer.parseInt(stack.pop());
-                int t = a * b;
-                stack.push(t + "");
-            }
+            var a = Integer.parseInt(stack.pop());
+            var b = Integer.parseInt(stack.pop());
+            int t = num.equals("+") ? a + b : a * b;
+            stack.push(t + "");
         }
 
         int ans = Integer.parseInt(stack.pop());
