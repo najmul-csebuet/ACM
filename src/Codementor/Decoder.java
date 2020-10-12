@@ -66,13 +66,15 @@ public class Decoder {
                     //r2 = (A * r1 + B) % M
                     int t = (A * r0 + B) % M;
                     if (t == rs[1]) {
-                        rs[0] = r0;
                         break;
                     }
                 }
                 if (r0 == 1000) {
                     continue;
                 }
+
+                rs[0] = r0;
+
                 //We have A, B, M, r0
                 getRs(A, B, M, n, m);
                 int[] candidatePlainText = new int[n];
