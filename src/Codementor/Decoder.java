@@ -13,7 +13,7 @@ public class Decoder {
     public static void main(String[] args) throws IOException {
 
         boolean fileInOut = !Decoder.class.getPackage().getName().isEmpty();
-        sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? Decoder.class.getResourceAsStream("in1.txt") : System.in)));
+        sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? Decoder.class.getResourceAsStream("in.txt") : System.in)));
         out = new PrintWriter(new BufferedOutputStream(fileInOut ? new FileOutputStream("out.txt") : System.out), true);
 
         int N = Integer.parseInt(sc.nextLine());//sc.nextInt();
@@ -30,7 +30,7 @@ public class Decoder {
     }
 
     private int[] getRs(int A, int B, int M, int n, int m) {
-        for (int i = m + 1; i <= n; i++) {
+        for (int i = 1; i <= n; i++) {
             rs[i] = (A * rs[i - 1] + B) % M;
         }
         return rs;
@@ -47,10 +47,12 @@ public class Decoder {
             for (int B = 0; B < M; B++) {
 
                 int A;
-                for (A = 0; A < 1000; A++) {
+                for (A = 1; A < 1000; A++) {
                     int t = (A * rs[1] + B) % M;
                     if (t == rs[2]) {
-                        break;
+                        if (isRelPrime(A, M)) {
+                            break;
+                        }
                     }
                 }
 
@@ -79,13 +81,13 @@ public class Decoder {
                     candidatePlainText[i] = encryptedText[i] ^ rs[i + 1];
                 }
 
-                System.out.print((A % M) + " " + (B % M) + " " + M + " " + (r0 % M));
+                /*System.out.print((A % M) + " " + (B % M) + " " + M + " " + (r0 % M));
                 for (int i = 0; i < n; i++) {
                     System.out.print(" " + candidatePlainText[i]);
                 }
-                return;
+                return;*/
 
-                /*boolean flag = true;
+                boolean flag = true;
 
                 for (int i = 0; i < m; i++) {
                     if (plainText[i] == candidatePlainText[i]) continue;
@@ -99,8 +101,22 @@ public class Decoder {
                         System.out.print(" " + candidatePlainText[i]);
                     }
                     return;
-                }*/
+                }
             }
         }
+    }
+
+    private int gcd(int a, int b) {
+        int t;
+        while (b != 0) {
+            t = a;
+            a = b;
+            b = t % b;
+        }
+        return a;
+    }
+
+    private boolean isRelPrime(int a, int b) {
+        return gcd(a, b) == 1;
     }
 }
