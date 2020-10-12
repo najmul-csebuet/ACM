@@ -13,23 +13,20 @@ public class Decoder {
     public static void main(String[] args) throws IOException {
 
         boolean fileInOut = !Decoder.class.getPackage().getName().isEmpty();
-        sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? Decoder.class.getResourceAsStream("in.txt") : System.in)));
+        sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? Decoder.class.getResourceAsStream("in1.txt") : System.in)));
         out = new PrintWriter(new BufferedOutputStream(fileInOut ? new FileOutputStream("out.txt") : System.out), true);
 
-        int totalTC = fileInOut ? sc.nextInt() : 1;
-        for (int t = 1; t <= totalTC; t++) {
+        int N = Integer.parseInt(sc.nextLine());//sc.nextInt();
+        int M = Integer.parseInt(sc.nextLine());//sc.nextInt();
 
-            int N = sc.nextInt();
-            int M = sc.nextInt();
+        int[] encryptedText = new int[N];
+        for (int i = 0; i < encryptedText.length; ++i)
+            encryptedText[i] = Integer.parseInt(sc.nextLine());//sc.nextInt();
 
-            int[] encryptedText = new int[N];
-            for (int i = 0; i < encryptedText.length; ++i) encryptedText[i] = sc.nextInt();
+        int[] plainText = new int[M];
+        for (int i = 0; i < plainText.length; ++i) plainText[i] = Integer.parseInt(sc.nextLine());//sc.nextInt();
 
-            int[] plainText = new int[M];
-            for (int i = 0; i < plainText.length; ++i) plainText[i] = sc.nextInt();
-
-            new Decoder().solution(N, M, encryptedText, plainText);
-        }
+        new Decoder().solution(N, M, encryptedText, plainText);
     }
 
     private int[] getRs(int A, int B, int M, int n, int m) {
@@ -46,7 +43,7 @@ public class Decoder {
             rs[i + 1] = encryptedText[i] ^ plainText[i];
         }
 
-        for (int M = 1; M < 1000; M++) {
+        for (int M = 1; M <= 1000; M++) {
             for (int B = 0; B < M; B++) {
 
                 int A;
@@ -63,7 +60,7 @@ public class Decoder {
 
                 int r0;
                 for (r0 = 0; r0 < 1000; r0++) {
-                    //r2 = (A * r1 + B) % M
+                    //r1 = (A * r0 + B) % M
                     int t = (A * r0 + B) % M;
                     if (t == rs[1]) {
                         break;
@@ -82,7 +79,13 @@ public class Decoder {
                     candidatePlainText[i] = encryptedText[i] ^ rs[i + 1];
                 }
 
-                boolean flag = true;
+                System.out.print((A % M) + " " + (B % M) + " " + M + " " + (r0 % M));
+                for (int i = 0; i < n; i++) {
+                    System.out.print(" " + candidatePlainText[i]);
+                }
+                return;
+
+                /*boolean flag = true;
 
                 for (int i = 0; i < m; i++) {
                     if (plainText[i] == candidatePlainText[i]) continue;
@@ -91,19 +94,13 @@ public class Decoder {
                 }
 
                 if (flag) {
-                    System.out.println((A % M) + " " + (B % M) + " " + M + " " + (r0 % M));
-                    for (int i = 0; i < n - 1; i++) {
-                        System.out.print(candidatePlainText[i] + " ");
-                    }
-
-                    if (n > 0) {
-                        System.out.println(candidatePlainText[n - 1]);
+                    System.out.print((A % M) + " " + (B % M) + " " + M + " " + (r0 % M));
+                    for (int i = 0; i < n; i++) {
+                        System.out.print(" " + candidatePlainText[i]);
                     }
                     return;
-                }
+                }*/
             }
         }
-
-        System.out.println("Sorry no solution found.");
     }
 }
