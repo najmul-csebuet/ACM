@@ -36,6 +36,7 @@ public class A {
             BufferedReader reader2 = new BufferedReader(new FileReader(outputFile));
 
             String line1 = reader1.readLine();
+
             String line2 = reader2.readLine();
 
             boolean areEqual = true;
