@@ -87,20 +87,16 @@ public class CyclicPrimes {
             return false;
         }
 
-        public static boolean checkDuplicate(String[] input) {
-            List inputList = Arrays.asList(input);
-            Set inputSet = new HashSet(inputList);
-            if (inputSet.size() < inputList.size())
-                return true;
-            return false;
-        }
+        public static boolean checkDuplicate(Object[] input) {
 
-        public static boolean checkDuplicate(int[] input) {
-            List inputList = Arrays.asList(input);
+            Object[] objects = Arrays.stream(input).distinct().toArray();
+            return input.length != objects.length;
+
+            /*List inputList = Arrays.asList(input);
             Set inputSet = new HashSet(inputList);
             if (inputSet.size() < inputList.size())
                 return true;
-            return false;
+            return false;*/
         }
 
         public static void printMissingNumber(int[] numbers, int count) {
@@ -118,12 +114,9 @@ public class CyclicPrimes {
         }
 
         public static String rotateLeft(String S, int amount) {
-
             amount %= S.length();
             StringBuilder sb = new StringBuilder(S + S);
-
-            String substring = sb.substring(amount, amount + S.length());
-            return substring;
+            return sb.substring(amount, amount + S.length());
         }
 
         public static String rotateRight(String S, int amount) {

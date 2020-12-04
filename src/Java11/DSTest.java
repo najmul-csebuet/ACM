@@ -1,13 +1,13 @@
 package Java11;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class DSTest {
 
     public static void main(String[] args) {
 
         var n = new int[]{2, 4, 5};
-
 
         int binarySearch = Arrays.binarySearch(n, 6);
 
@@ -20,6 +20,10 @@ public class DSTest {
         PriorityQueue();
         ArrayDeque();
         map();
+
+        var input = new String[] {"adas", "adasd", "adasd"};
+        List<String> collect = Arrays.stream(input).distinct().collect(Collectors.toList());
+        System.out.println(collect.size() == input.length);
     }
 
     private static void map() {
