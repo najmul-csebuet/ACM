@@ -35,14 +35,16 @@ public class A {
 
     public int[] solution(double M, double P) {
 
+        int m = (int) (M * 100);
+        int p = (int) (P * 100);
+        int exchangeAmount = m - p;//(int) (Math.round((M - P) * 100));
+
         int[] coins = { 1, 5, 10, 25, 50, 100};
-        int amount = (int) (Math.round((M - P) * 100));
 
         int[] ans = new int[coins.length];
-
         for (int i = 5; i >= 0; i--) {
-            ans[i] = amount / coins[i];
-            amount %= coins[i];
+            ans[i] = exchangeAmount / coins[i];
+            exchangeAmount %= coins[i];
         }
 
         return ans;
