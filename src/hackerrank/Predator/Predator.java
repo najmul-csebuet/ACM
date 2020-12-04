@@ -19,13 +19,27 @@ public class Predator {
         sc = new Scanner(new BufferedReader(new InputStreamReader(fileInOut ? Predator.class.getResourceAsStream("in.txt") : System.in)));
         out = new PrintWriter(new BufferedOutputStream(fileInOut ? new FileOutputStream("out.txt") : System.out), true);
 
+        int repeat = 1;
         int totalTC = fileInOut ? sc.nextInt() : sc.nextInt();
         for (int t = 1; t <= totalTC; t++) {
             int[] N = new int[sc.nextInt()];
             for (int i = 0; i < N.length; ++i) N[i] = sc.nextInt();
 
-            new Predator().solution(N);
+            long start = System.currentTimeMillis();
+            for (int i = 0; i < repeat; i++) {
+                new Predator().solution(N);
+            }
+            long end = System.currentTimeMillis();
+            System.out.println("Solve Difference: " + (end - start));
         }
+
+        long start = System.currentTimeMillis();
+        for (int i = 0; i < repeat; i++) {
+            int i1 = checkBetter1();
+            System.out.println(i1);
+        }
+        long end = System.currentTimeMillis();
+        System.out.println("Check better difference: " + (end - start));
 
         if (fileInOut) {
             String[] ansFileText = Files.readAllLines(Paths.get(Predator.class.getResource("ans.txt").getFile())).toArray(new String[0]);
@@ -45,13 +59,23 @@ public class Predator {
             updateMap(childMap, n[i], i);
         }
 
-        List<Integer> rootlist = childMap.get(-1);
-        for (int i = 0; i < n.length; i++) {
-            if (n[i] == -1) {
-                searchTree(n, i, 0);
-            }
+        List<Integer> rootList = childMap.get(-1);
+        for (int i = 0; i < rootList.size(); i++) {
+            searchTree(rootList.get(i), 0);
         }
 
+        print();
+    }
+
+    private void searchTree(int parent, int depthOfParent) {
+        updateMap(levelMap, depthOfParent, parent);
+        List<Integer> childList = childMap.getOrDefault(parent, new ArrayList<>());
+        for (Integer integer : childList) {
+            searchTree(integer, depthOfParent + 1);
+        }
+    }
+
+    private void print() {
         for (int i = 0; i < levelMap.keySet().size(); i++) {
             List<Integer> integers = levelMap.get(i);
             for (int j = 0; j < integers.size() - 1; j++) {
@@ -67,18 +91,37 @@ public class Predator {
         map.put(key, orDefault);
     }
 
-    private void searchTree(int[] n, int parent, int depthOfParent) {
-
-        updateMap(levelMap, depthOfParent, parent);
-
-        /*List<Integer> orDefault = levelMap.getOrDefault(depthOfParent, new ArrayList<>());
-        orDefault.add(parent);
-        levelMap.put(depthOfParent, orDefault);*/
-
-        for (int i = 0; i < n.length; i++) {
-            if (n[i] == parent) {
-                searchTree(n, i, depthOfParent + 1);
+    private static int checkBetter() {
+        int[] ints =  {-1, 8, 6, 0, 7, 3, 8, 9, -1, 6, 1};
+        int max = 1;
+        int arrLen = ints.length;
+        for (var i = 0; i < ints.length; i++)
+        {
+            var a = i;
+            var counter = 1;
+            while (ints[a] > -1 && ints[a] < arrLen && counter < arrLen)
+            {
+                a = ints[a];
+                counter++;
             }
+            if (counter > max)
+                max = counter;
         }
+        return max;
+    }
+
+    private static int checkBetter1() {
+        int[] ints =  {-1, 8, 6, 0, 7, 3, 8, 9, -1, 6, 1};
+        int max = 0;
+        for (var i = 0; i < ints.length; i++) {
+            var a = i;
+            var counter = 1;
+            while (ints[a] > -1) {
+                a = ints[a];
+                counter++;
+            }
+            max = Math.max(max, counter);
+        }
+        return max;
     }
 }
