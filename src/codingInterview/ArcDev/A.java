@@ -12,11 +12,10 @@ public class A {
 
     public static void main(String[] args) throws IOException {
         List<Boolean> l = new ArrayList<>();
-        A s = new A();
 
-        l.add(s.countChange(4, Arrays.asList(1, 2, -7)) == 3);
-        l.add(s.countChange(10, Arrays.asList(5, 2, 3)) == 4);
-        l.add(s.countChange(11, Arrays.asList(5, 7)) == 0);
+        l.add(countChange(4, Arrays.asList(1, 2, -7)) == 3);
+        l.add(countChange(10, Arrays.asList(5, 2, 3)) == 4);
+        l.add(countChange(11, Arrays.asList(5, 7)) == 0);
 
         if (!l.contains(false)) out.println("All Test Cases Passed.");
         else for (int i = 0; i < l.size(); i++) if (!l.get(i)) out.println("Case " + (i + 1) + ": Failed");
