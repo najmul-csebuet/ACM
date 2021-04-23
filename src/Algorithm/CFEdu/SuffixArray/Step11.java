@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Step11 {
 
-    class Pair implements Comparable<Pair> {
+    static class Pair implements Comparable<Pair> {
 
         public char ch;
         public int index;
@@ -70,8 +70,8 @@ public class Step11 {
 
             aList.sort((a1, a2) -> {
                 if (a1.get(0) < a2.get(0)) return -1;
-                if ((a1.get(0).equals(a2.get(0))) && (a1.get(1) < a2.get(1))) return -1;
-                return 1;
+                if (a1.get(0) > a2.get(0)) return +1;
+                return a1.get(1) - a2.get(1);
             });
 
             //p.clear();
